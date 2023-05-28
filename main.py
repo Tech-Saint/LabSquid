@@ -13,15 +13,15 @@ def init_device_obj(device):
             return network(device)
         
 
-def mass_command(Device_instances,dev_list:list=None):
+def mass_ssh_command(Device_instances,instruction:str, dev_list:list=None):
     """pass None to dev list to do all instances"""
     if dev_list == None: dev_list= list(Device_instances.keys())
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
         for i in dev_list:
-            task = executor.submit(Device_instances[i].update_info)
+            task = executor.submit(Device_instances[i].dynamic_method_call(instruction))
             dns_jobs.append(task)
-        for entry in dns_jobs:
+        for entry in dns_jobs:  
             result = entry.result(timeout=60)
             results.append(result)
 
@@ -57,6 +57,6 @@ if __name__ == "__main__":
             
     print(list(Device_instances["ctlbox"].commands.keys()))
     Device_instances["ctlbox"].dynamic_method_call("update_info")
-    mass_command(Device_instances)
+    mass_ssh_command(Device_instances)
             
     

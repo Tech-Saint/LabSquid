@@ -112,6 +112,7 @@ class linux(_client):
                 "update_info":[
                     "sudo dmidecode --string='processor-version'",
                     "sudo dmidecode --string='system-manufacturer'",
+                    'cat /etc/*-release | grep -i "PRETTY_NAME"',
                     ],
                 "shutdown":["sudo shutdown"],
                 "reboot":["sudo reboot"]
@@ -119,12 +120,16 @@ class linux(_client):
         _client.__init__(self,device)
 
     def update_info(self):
-        """"""
+        """This updates the class instance's copy of the data base for its respective entry.
+        TODO: covert the hard coded lines to regexes. 
+        Note: this SHOULD not update the main session.db.data. 
+        """
 
         output_list= self.execute_cmds(self.commands["update_info"])
 
         self.device["cpu"]=output_list[0].replace((self.DNS_name+"> "),"")
         self.device["mfg"]=output_list[1].replace((self.DNS_name+"> "),"")
+        self.device["os_ver"]=output_list[3].replace((self.DNS_name+"> "),"")
 
 class win32(_client):
     
@@ -135,6 +140,7 @@ class win32(_client):
         "update_info":[
             "wmic cpu get name",
             "wmic baseboard get manufacturer",
+            'systeminfo | findstr /B /C:"OS Name" /B /C:"OS Version"',
             ],
         "update":[
             "cmd.exe",
@@ -147,12 +153,16 @@ class win32(_client):
 
 
     def update_info(self):
-        """This should be called like this: session.db.update_db(Device_instances[device['DNS_name']].update_info())"""
+        """This updates the class instance's copy of the data base for its respective entry.
+        
+        Note: this SHOULD not update the main session.db.data. 
+        """
 
         output_list= self.execute_cmds(self.commands["update_info"])
 
-        self.device["cpu"]=output_list[0].replace((self.DNS_name+"> "),"")
+        self.device["cpu"]=output_list[0].replace((self.DNS_name+"> OS Name:"),"")
         self.device["mfg"]=output_list[1].replace((self.DNS_name+"> "),"")
+        self.device["os_ver"]=output_list[3].replace((self.DNS_name+"> "),"")
 
 
 
