@@ -1,0 +1,14 @@
+{
+   "Templates": {
+      "devices": [
+         "DNS_name",
+         "device_type",
+         "netmiko_type",
+         "ip",
+         "username",
+         "password"
+      ]
+   },
+   "devices": [
+   ]
+}
