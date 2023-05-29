@@ -19,7 +19,8 @@ class _Database():
             while highest_value > 254:
                 try:
                     highest_value=max([int(i) for i in re.findall(ip_regex, self.data["devices"][i]["ip"])])
-                    self.fix_entry("ip")
+                    if highest_value > 254:
+                        self.fix_entry("ip",i)
                     
                 except KeyError:pass
 
@@ -28,7 +29,7 @@ class _Database():
         # Fast enough for now. Uses Timsort to sort thr DB.
         # I'd like to open this up to have less loops...
              
-    def fix_entry(self,loc:str,):
+    def fix_entry(self,loc:str,i):
         """
         Wrap this in a while not equal to the correct value loop. 
         """
@@ -55,12 +56,12 @@ class _Database():
             with open(os.path.join(os.getcwd(),"device_db.json"), 'r', encoding='utf-8') as f:
                 self.data = json.load(f)
 
-    def update_db(self,entry):
+    def update_db(self,entry:dict):
+        """"""
         index=entry["id"]
         self.data["devices"][index]=entry
         self.prep_db()
-        self.save_db()
-
+        
 
 
 if __name__ == "__main__":
@@ -152,6 +153,7 @@ if __name__ == "__main__":
                 case other:
                     print("Please Type add, remove, or update")
                     continue
+            Database.prep_db(data,sel_key)
             Database.save_db(data,sel_key)
             print("Saved db")
             done = bool(input("Hit enter to continue or type exit to stop.\n"))

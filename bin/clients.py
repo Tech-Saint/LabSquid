@@ -44,9 +44,11 @@ class _client(object):
             print("Continuing...\n")
 
     def dynamic_method_call(self, func: str, *args, **kwargs):
+        """This is kinda buggy..."""
         do = f"{func}"
         if hasattr(self, do) and callable(func := getattr(self, do)):
-            func(*args, **kwargs)
+            output=func(*args, **kwargs)
+            self.lastOutput=output
 
         '''
         try:
@@ -129,7 +131,8 @@ class linux(_client):
 
         self.device["cpu"]=output_list[0].replace((self.DNS_name+"> "),"")
         self.device["mfg"]=output_list[1].replace((self.DNS_name+"> "),"")
-        self.device["os_ver"]=output_list[3].replace((self.DNS_name+"> "),"")
+        self.device["os_ver"]=output_list[2].replace((self.DNS_name+'> PRETTY_NAME="'),"")
+        return "updated"
 
 class win32(_client):
     
@@ -158,12 +161,13 @@ class win32(_client):
         Note: this SHOULD not update the main session.db.data. 
         """
 
+        print(f"Updating info for {self.DNS_name}")
         output_list= self.execute_cmds(self.commands["update_info"])
 
         self.device["cpu"]=output_list[0].replace((self.DNS_name+"> OS Name:"),"")
         self.device["mfg"]=output_list[1].replace((self.DNS_name+"> "),"")
         self.device["os_ver"]=output_list[3].replace((self.DNS_name+"> "),"")
-
+        return "Updated"
 
 
 class network(_client):
@@ -200,3 +204,4 @@ class network(_client):
             
             if len(sw_model) != 0: self.device["Model Number"] = sw_model
             if len(sw_serial) != 0: self.device["Serial Number"] = sw_model
+        return "Updated"

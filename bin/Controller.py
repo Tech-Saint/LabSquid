@@ -39,7 +39,12 @@ class Controller_init():
             self.device_info = json.load(db_temp)
             db_temp.close()
     
-    
+    def update_db(self, Device_instances, dev_list:list=None):
+        if dev_list == None: dev_list= list(Device_instances.keys())
+        
+        for i in dev_list:
+            self.db.update_db(Device_instances[i].device)
+        self.db.save_db()
 
 """  
 def sort_device_db(data,db):
