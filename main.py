@@ -1,8 +1,6 @@
 from bin.Controller import *
 import sys , concurrent.futures 
 
-from termcolor import colored
- 
 def init_device_objs(device):
     match device["device_type"]:
         case "win32":
@@ -54,8 +52,10 @@ if __name__ == "__main__":
             _ = task[future]
             Device_instances[_["DNS_name"]] = future.result()
             print("Initialized: "+ _["DNS_name"])
-    # test cases        
-    print(list(Device_instances["ctlbox"].commands.keys()))
+
+    # test cases:
+    # Replace "ctlbox" to test your own devices. Use the 
+    print("avail ssh cmds" + list(Device_instances["ctlbox"].commands.keys()))
     #output = Device_instances["ctlbox"].dynamic_method_call("update_info")
     mass_ssh_command(Device_instances,"update_info")
     session.update_db(Device_instances)
