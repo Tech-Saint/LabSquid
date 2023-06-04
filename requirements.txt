@@ -1,0 +1,2 @@
+cryptography==41.0.1
+netmiko==4.2.0
