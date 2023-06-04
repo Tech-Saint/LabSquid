@@ -8,13 +8,30 @@ class _client(object):
 
     """
     This is the common class with that all devices share.
-    Put common methods and function in here. 
+    Put common methods and functions in here. 
     """
 
     def __init__(self, device):
         self.device = device
         self.DNS_name = device ["DNS_name"]
         self.os_type= device ["device_type"]
+        try: device ['netmiko_type']
+        except KeyError:
+            try:
+
+                guesser = SSHDetect(
+                    host=device ['ip'],
+                    username = device ['username'],
+                    password = device ['password'],
+                    secret =  device ['password'],
+                    )
+                
+                best_match = guesser.autodetect()
+                print(best_match) # Name of the best device_type to use further
+                print(guesser.potential_matches)
+                device ['netmiko_type'] = best_match
+            except:raise NotImplementedError
+        
         self.Netmiko_settings = {
             "device_type": device ['netmiko_type'],
             "host": device ['ip'],
@@ -50,16 +67,6 @@ class _client(object):
             output=func(*args, **kwargs)
             self.lastOutput=output
 
-        '''
-        try:
-            guesser = SSHDetect(**client)
-            best_match = guesser.autodetect()
-            print(best_match) # Name of the best device_type to use further
-            print(guesser.potential_matches)
-            client['device_type'] = best_match
-        except:pass
-        '''
-        #check status of client:
         
     
     
