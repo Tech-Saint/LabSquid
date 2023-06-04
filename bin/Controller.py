@@ -1,4 +1,4 @@
-import json, os, configparser
+import json, os, configparser, concurrent.futures 
 from .db.database_interface import  _Database
 from .clients import *
 
@@ -45,6 +45,31 @@ class Controller_init():
         for i in dev_list:
             self.db.update_db(Device_instances[i].device)
         self.db.save_db()
+    
+    
+    ## testing 
+    def init_device_objs(device):
+        match device["device_type"]:
+            case "win32":
+                return win32(device)
+            case "linux":
+                return linux(device)
+            case "cisco":
+                return network(device)
+            
+    def mass_ssh_command(Device_instances,instruction:str, dev_list:list=None):
+        """pass None to dev list to do all instances"""
+        if dev_list == None: dev_list= list(Device_instances.keys())
+        
+        results = []
+        jobs=[]
+        with concurrent.futures.ThreadPoolExecutor(8) as executor:
+            for i in dev_list:
+                task = executor.submit(Device_instances[i].dynamic_method_call,instruction)
+                jobs.append(task)
+            for entry in jobs:  
+                result = entry.result(timeout=60)
+                results.append(result)
 
 """  
 def sort_device_db(data,db):
