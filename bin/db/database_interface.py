@@ -12,18 +12,25 @@ class _Database():
         return self.data
 
     def prep_db(self):
-        ip_regex=r"(?:[\d]{1,3})"
+        ip_octet_regex=r"(?:[\d]{1,3})"
+        ip_len_regex=r"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"
         for i in range(len(self.data["devices"])):
             self.data["devices"][i]["id"]=i
+            valid = 0
+            # Check ip
             highest_value=257
-            while highest_value > 254:
+            while valid != 2:
+                valid = 0
+                if re.match(ip_len_regex, self.data["devices"][i]["ip"]) != None: valid+=1 
+                else: self.fix_entry("ip",i)
+
                 try:
-                    highest_value=max([int(i) for i in re.findall(ip_regex, self.data["devices"][i]["ip"])])
+                    highest_value=max([int(i) for i in re.findall(ip_octet_regex, self.data["devices"][i]["ip"])])
                     if highest_value > 254:
                         self.fix_entry("ip",i)
-                    
-                except KeyError:pass
+                    else:valid+=1
 
+                except ValueError: self.fix_entry("ip",i)
         # self.data["devices"] = sorted(self.data["devices"], key=lambda d: d['ip'])
         # Commented out as the device sort may cause issues later when db has not been passed to each thread. 
         # Fast enough for now. Uses Timsort to sort thr DB.
@@ -34,7 +41,8 @@ class _Database():
         Wrap this in a while not equal to the correct value loop. 
         """
         data=self.data["devices"][i]
-        print(f"Invalid {loc} for \n{loc}")
+        
+        print(f"Invalid {loc} of {data[loc]}\nOther entries in the db:\n{data}")
         data[loc]=input(f"Please type the updated value for {loc}.\n")
         
 
@@ -57,10 +65,9 @@ class _Database():
                 self.data = json.load(f)
 
     def update_db(self,entry:dict):
-        """"""
+        """Give this a single database entry."""
         index=entry["id"]
         self.data["devices"][index]=entry
-        self.prep_db()
         
 
 
@@ -72,8 +79,9 @@ if __name__ == "__main__":
         while stop != True:
             data[loc].append({})
             for x in data["Templates"][loc]:
-                temp=input(f"{x : }")
+                temp=input(f"{x}:")
                 temp_data[loc][-1].update({x:str(temp)})
+            temp_data[loc][-1]['id']=len(temp_data[loc])-1
             stop = bool(input("Hit enter to continue or type exit to stop and commit changes.\n"))
         data[loc]=temp_data[loc]
         return data
@@ -82,12 +90,11 @@ if __name__ == "__main__":
             stop=False
             temp_data = data.copy()
             while stop != True:
-                n=0
                 Local_keys=[]
-                for i in temp_data[loc]:
-                    print(f"{n} : {i}")
-                    Local_keys.append(i)
-                    n+=1
+                for index,value in enumerate(temp_data[loc]):
+                    print(f"{index} : {value}")
+                    Local_keys.append(index)
+                    
                 del_selection = int(input("type the number attached to the entry to delete it."))
                 temp_data[loc].pop(del_selection)
                 print("Removed entry")
@@ -97,14 +104,15 @@ if __name__ == "__main__":
     def update_entry_cli(data,loc):
             stop=False
             temp_data = data.copy()
-            n=0
             while stop != True:
-                for i in temp_data[loc]:
-                    print(f"{n} : {i}")
-                    n+=1
-                main_selection = int(input("type the number attached to the entry to modify it."))
-                n=0
                 Local_keys=[]
+                for index,value in enumerate(temp_data[loc]):
+                    print(f"{index} : {value}")
+                    Local_keys.append(index)
+                    
+                main_selection = int(input("type the number attached to the entry to modify it."))
+                Local_keys.clear()
+
                 for i in temp_data[loc][main_selection].keys():
                     print(f"{n} : {i}")
                     Local_keys.append(i)
@@ -124,10 +132,10 @@ if __name__ == "__main__":
         print("Would you like to change?")
         n=0
         top_keys=[]
-        for i in Database.data.keys():
+        for n,i in enumerate(Database.data.keys()):
             print(f"{n} : {i}")
             top_keys.append(i)
-            n+=1
+            
         Whattodo=str(input("or type E to exit.\n")).lower()
         if Whattodo == "e":
             exit()
@@ -153,8 +161,9 @@ if __name__ == "__main__":
                 case other:
                     print("Please Type add, remove, or update")
                     continue
-            Database.prep_db(data,sel_key)
-            Database.save_db(data,sel_key)
+            for i in data["devices"]:
+                Database.update_db(i)
+            Database.save_db()
             print("Saved db")
             done = bool(input("Hit enter to continue or type exit to stop.\n"))
 
