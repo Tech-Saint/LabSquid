@@ -1,5 +1,6 @@
 from bin.Controller import *
-import sys , concurrent.futures 
+import sys , concurrent.futures
+
 
 def init_device_objs(device):
     match device["device_type"]:
@@ -25,6 +26,18 @@ def mass_ssh_command(Device_instances,instruction:str, dev_list:list=None):
             result = entry.result(timeout=60)
             results.append(result)
 
+def init_backend():
+    session=Controller_unit()
+
+    Device_instances = {}
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        task = {executor.submit(init_device_objs,device): device for device in session.device_info["devices"]}
+        for future in concurrent.futures.as_completed(task):
+            _ = task[future]
+            Device_instances[_["DNS_name"]] = future.result()
+
+
 if __name__ == "__main__":
     #parse CLI 
     arg = ""
@@ -42,20 +55,19 @@ if __name__ == "__main__":
     else:
         pass
 
-    session=Controller_init()
-
+    session=Controller_unit()
 
     Device_instances = {}
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
         task = {executor.submit(init_device_objs,device): device for device in session.device_info["devices"]}
         for future in concurrent.futures.as_completed(task):
             _ = task[future]
             Device_instances[_["DNS_name"]] = future.result()
-            print("Initialized: "+ _["DNS_name"])
 
     # test cases:
     # Replace "ctlbox" to test your own devices. Use the 
-    print("avail ssh cmds" + list(Device_instances["ctlbox"].commands.keys()))
+    #print("avail ssh cmds" + list(Device_instances["ctlbox"].commands.keys()))
     #output = Device_instances["ctlbox"].dynamic_method_call("update_info")
     mass_ssh_command(Device_instances,"update_info")
     session.update_db(Device_instances)

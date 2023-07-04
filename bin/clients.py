@@ -3,20 +3,40 @@ from sys import platform,path
 from socket import gethostbyname
 from netmiko import ConnectHandler, NetMikoAuthenticationException, NetMikoTimeoutException, SSHDetect
 import re
+from .Localutils import *
+
+
+
+def init_device_objs(device):
+    match device["device_type"]:
+        case "win32":
+            return win32(device)
+        case "linux":
+            return linux(device)
+        case "cisco":
+            return network(device)
+        
+
 
 class _client(object):
 
     """
-    This is the common class with that all devices share.
-    Put common methods and functions in here. 
+    This is the common class with that all devices share.\n
+    Put common methods and functions in here.\n
+    Self.busy - Bool, When true a SSH connection has been established\n
     """
 
     def __init__(self, device):
+        
         self.device = device
         self.DNS_name = device ["DNS_name"]
         self.os_type= device ["device_type"]
+        log_event(f"initialized {self.DNS_name}")
+        self.busy=False
         try: device ['netmiko_type']
+
         except KeyError:
+            log_event(f"{self.DNS_name}> Netmiko Type does not exist, trying to guess it now...")
             try:
 
                 guesser = SSHDetect(
@@ -27,9 +47,11 @@ class _client(object):
                     )
                 
                 best_match = guesser.autodetect()
-                print(best_match) # Name of the best device_type to use further
-                print(guesser.potential_matches)
+                log_event(best_match) # Name of the best device_type to use further
+                log_event(guesser.potential_matches)
                 device ['netmiko_type'] = best_match
+                log_event(f"{self.DNS_name}> Successfully guessed the device.")
+
             except:raise NotImplementedError
         
         self.Netmiko_settings = {
@@ -47,6 +69,7 @@ class _client(object):
         return self.DNS_name
     
     def init_ssh(self):
+        self.busy = True
         try:
             net_connect = ConnectHandler(
                 **self.Netmiko_settings, timeout=20
@@ -55,20 +78,19 @@ class _client(object):
             return net_connect
 
         except (NetMikoAuthenticationException, NetMikoTimeoutException):
-            print("Could not authenticate in time to {}\nExiting...".format(self.Netmiko_settings["host"]))
+            log_event("Could not authenticate in time to {}\nExiting...".format(self.Netmiko_settings["host"]))
+            self.busy=False
         except (ValueError):
-            print("""Could not enter enable mode on {}""".format(self.Netmiko_settings["host"]))
-            print("Continuing...\n")
+            log_event("""Could not enter enable mode on {}""".format(self.Netmiko_settings["host"]))
+            self.busy=False
+
 
     def dynamic_method_call(self, func: str, *args, **kwargs):
-        """This is kinda buggy..."""
         do = f"{func}"
+        log_event(f"Truying to call {func} on {self.DNS_name}")
         if hasattr(self, do) and callable(func := getattr(self, do)):
             output=func(*args, **kwargs)
             self.lastOutput=output
-
-        
-    
     
     def dns_query(self):
         """
@@ -78,7 +100,7 @@ class _client(object):
         try:
             self.DNS_exist=bool(gethostbyname(self.DNS_name))
         except:
-            pass
+            log_event(f"failed to get DNS name{self.DNS_name}")
 
     def ping_device(self):
         """Returns None if successful. On fail will return 1."""
@@ -96,14 +118,17 @@ class _client(object):
         Submit commands to this method as a list.
         Returns a list of outputs that starts with "DNS name > "
         """
+        self.busy=True
         self.net_connect=self.init_ssh()
         output_list=[]
         self.net_connect.find_prompt()
         self.net_connect.enable(pattern="password")
         for command in command_lst:
             output = self.net_connect.send_command(command).strip()
-            print(self.DNS_name + "> " + output)
+            log_event(f"{self.DNS_name} > {output}")
             output_list.append(self.DNS_name + "> " + output)
+        self.busy=False
+        self.net_connect.disconnect()
         return output_list
     
     def shutdown(self):
@@ -168,7 +193,7 @@ class win32(_client):
         Note: this SHOULD not update the main session.db.data. 
         """
 
-        print(f"Updating info for {self.DNS_name}")
+        log_event(f"Updating info for {self.DNS_name}")
         output_list= self.execute_cmds(self.commands["update_info"])
 
         self.device["cpu"]=output_list[0].replace((self.DNS_name+"> OS Name:"),"")
@@ -193,21 +218,21 @@ class network(_client):
     def update_info(self):
         """This should be called like this: session.db.update_db(Device_instances[device['DNS_name']].update_info())"""
         ## WIP for inerface gathering. 
-        output_list= self.execute_cmds(self.commands["update_info"])
-        sw_model_rgx = r"Model Number *: (.*)"
-        sw_serial_rgx = r"System Serial Number *: (.*)"
+        output_list=self.execute_cmds(self.commands["update_info"])
+        sw_model_regex =r"Model Number *: (.*)"
+        sw_SN_regex = r"System Serial Number *: (.*)"
         for line in output_list:
             line=line.replace((self.DNS_name+"> "),"")
 
-            sw_model = re.findall(sw_model_rgx, line)
-            sw_serial = re.findall(sw_serial_rgx, line)
+            sw_model = re.findall(sw_model_regex, line)
+            sw_serial = re.findall(sw_SN_regex, line)
 
             if len(sw_model) == 0 and len(sw_serial) == 0:
                 # fall back for older switches
-                sw_model_rgx = r"Machine Type\.+(.*)"
-                sw_serial_rgx = r"Serial Number\.+(.*)"
-                sw_model = re.findall(sw_model_rgx, line)
-                sw_serial = re.findall(sw_serial_rgx, line)
+                sw_model_regex = r"Machine Type\.+(.*)"
+                sw_SN_regex = r"Serial Number\.+(.*)"
+                sw_model = re.findall(sw_model_regex, line)
+                sw_serial = re.findall(sw_SN_regex, line)
             
             if len(sw_model) != 0: self.device["Model Number"] = sw_model
             if len(sw_serial) != 0: self.device["Serial Number"] = sw_model

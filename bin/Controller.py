@@ -4,7 +4,8 @@ from .clients import *
 
 
 output_list=[]
-class Controller_init():
+class Controller_unit():
+    """This is the main clontroller of the back end. """
     def __init__(self):
 
         self.path_of_tool = path[0]
@@ -48,15 +49,7 @@ class Controller_init():
     
     
     ## testing 
-    def init_device_objs(device):
-        match device["device_type"]:
-            case "win32":
-                return win32(device)
-            case "linux":
-                return linux(device)
-            case "cisco":
-                return network(device)
-            
+
     def mass_ssh_command(Device_instances,instruction:str, dev_list:list=None):
         """pass None to dev list to do all instances"""
         if dev_list == None: dev_list= list(Device_instances.keys())
