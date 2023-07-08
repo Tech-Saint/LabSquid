@@ -163,3 +163,4 @@ cython_debug/
 .device_db.json
 bin/db/device_db.json
 bin/db/device_db.json
+bin/db/device_db.json
