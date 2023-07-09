@@ -160,7 +160,5 @@ cython_debug/
 #.idea/
 
 # device_db
-.device_db.json
-bin/db/device_db.json
-bin/db/device_db.json
-bin/db/device_db.json
+
+Labmanager/bin/db/device_db.json
