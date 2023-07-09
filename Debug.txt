@@ -1,0 +1,526 @@
+INFO:root:04.Jul 2023 17:08:06 - initialized ctlbox
+INFO:root:04.Jul 2023 17:08:07 - initialized Pastasauce
+INFO:root:04.Jul 2023 17:08:07 - Truying to call update_info on Pastasauce
+INFO:root:04.Jul 2023 17:08:07 - Truying to call update_info on ctlbox
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_9.0)
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_8.9p1)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:04.Jul 2023 17:08:12 - Pastasauce > Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz
+INFO:root:04.Jul 2023 17:08:14 - Pastasauce > LENOVO
+INFO:root:04.Jul 2023 17:08:15 - ctlbox > Intel(R) Core(TM) i3-9100T CPU @ 3.10GHz
+INFO:root:04.Jul 2023 17:08:15 - Pastasauce > PRETTY_NAME="Slackware 15.0 x86_64 (post 15.0 -current)"
+INFO:root:04.Jul 2023 17:08:16 - ctlbox > Dell Inc.
+INFO:root:04.Jul 2023 17:08:17 - ctlbox > PRETTY_NAME="Ubuntu 22.04.2 LTS"
+INFO:root:04.Jul 2023 17:08:25 - Truying to call ping_device on Pastasauce
+INFO:root:04.Jul 2023 17:08:25 - Truying to call ping_device on ctlbox
+INFO:root:08.Jul 2023 16:23:49 - initialized ctlbox
+INFO:root:08.Jul 2023 16:23:49 - initialized Pastasauce
+INFO:root:08.Jul 2023 16:23:49 - Truying to call update_info on ctlbox
+INFO:root:08.Jul 2023 16:23:49 - Truying to call update_info on Pastasauce
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_9.0)
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_8.9p1)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:08.Jul 2023 16:23:55 - Pastasauce > Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz
+INFO:root:08.Jul 2023 16:23:57 - Pastasauce > LENOVO
+INFO:root:08.Jul 2023 16:23:58 - ctlbox > Intel(R) Core(TM) i3-9100T CPU @ 3.10GHz
+INFO:root:08.Jul 2023 16:23:58 - Pastasauce > PRETTY_NAME="Slackware 15.0 x86_64 (post 15.0 -current)"
+INFO:root:08.Jul 2023 16:23:59 - ctlbox > Dell Inc.
+INFO:root:08.Jul 2023 16:24:00 - ctlbox > PRETTY_NAME="Ubuntu 22.04.2 LTS"
+INFO:root:08.Jul 2023 16:24:08 - Truying to call ping_device on ctlbox
+INFO:root:08.Jul 2023 16:24:08 - Truying to call ping_device on Pastasauce
+INFO:root:08.Jul 2023 17:47:42 - initialized ctlbox
+INFO:root:08.Jul 2023 17:47:42 - initialized Pastasauce
+INFO:root:08.Jul 2023 17:47:42 - Truying to call update_info on Pastasauce
+INFO:root:08.Jul 2023 17:47:42 - Truying to call update_info on ctlbox
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_9.0)
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_8.9p1)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:08.Jul 2023 17:47:48 - Pastasauce > Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz
+INFO:root:08.Jul 2023 17:47:49 - Pastasauce > LENOVO
+INFO:root:08.Jul 2023 17:47:51 - ctlbox > Intel(R) Core(TM) i3-9100T CPU @ 3.10GHz
+INFO:root:08.Jul 2023 17:47:51 - Pastasauce > PRETTY_NAME="Slackware 15.0 x86_64 (post 15.0 -current)"
+INFO:root:08.Jul 2023 17:47:52 - ctlbox > Dell Inc.
+INFO:root:08.Jul 2023 17:47:53 - ctlbox > PRETTY_NAME="Ubuntu 22.04.2 LTS"
+INFO:root:08.Jul 2023 17:48:01 - Truying to call ping_device on Pastasauce
+INFO:root:08.Jul 2023 17:48:01 - Truying to call ping_device on ctlbox
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 389-841-570
+INFO:root:08.Jul 2023 18:05:31 - initialized ctlbox
+INFO:root:08.Jul 2023 18:05:31 - initialized Pastasauce
+INFO:root:08.Jul 2023 18:05:31 - Truying to call update_info on Pastasauce
+INFO:root:08.Jul 2023 18:05:31 - Truying to call update_info on ctlbox
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_9.0)
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_8.9p1)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 389-841-570
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:48:41] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:48:41] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:48:43] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:48:43] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:48:44] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:48:44] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:49:36] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:49:36] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:50:13] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:50:14] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:51:30] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:51:30] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:51:30] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:51:30] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:51:30] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:52:32] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:52:33] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:52:33] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:52:33] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:52:33] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:53:15] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:54:13] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:54:13] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:54:13] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:54:13] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:54:13] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:58:22] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:58:22] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:58:22] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:58:22] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 18:58:22] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:02:44] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:02:45] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:02:45] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:02:45] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:02:45] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/Labmanager/bin/db/database_interface.py', reloading
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:06] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:06] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:10] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:10] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:10] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:root:08.Jul 2023 19:03:16 - initialized ctlbox
+INFO:root:08.Jul 2023 19:03:17 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:17] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:17] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 19:03:35 - initialized ctlbox
+INFO:root:08.Jul 2023 19:03:35 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:35] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:03:35] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 19:04:30 - initialized ctlbox
+INFO:root:08.Jul 2023 19:04:30 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:06:26] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:06:26] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/App.py', reloading
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 19:06:38 - initialized ctlbox
+INFO:root:08.Jul 2023 19:06:38 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:06:38] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:06:39] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:06:39] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:06:39] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:06:39] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/App.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 19:09:49 - initialized ctlbox
+INFO:root:08.Jul 2023 19:09:49 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:12:59] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:12:59] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:12:59] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:12:59] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:12:59] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:root:08.Jul 2023 19:13:11 - initialized ctlbox
+INFO:root:08.Jul 2023 19:13:11 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:21:34] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:21:34] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:21:34] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:21:34] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:21:34] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/App.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 19:22:00 - initialized ctlbox
+INFO:root:08.Jul 2023 19:22:00 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:01] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:01] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:01] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:01] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:01] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:root:08.Jul 2023 19:22:23 - initialized ctlbox
+INFO:root:08.Jul 2023 19:22:23 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:23] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:23] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:23] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:23] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:22:23] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/App.py', reloading
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 19:22:42 - initialized ctlbox
+INFO:root:08.Jul 2023 19:22:42 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:23:34] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:23:34] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:23:34] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:23:34] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:23:34] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 19:23:46 - initialized ctlbox
+INFO:root:08.Jul 2023 19:23:46 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:23:46] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 19:34:01 - initialized ctlbox
+INFO:root:08.Jul 2023 19:34:01 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:34:01] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:34:01] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 19:35:53 - initialized ctlbox
+INFO:root:08.Jul 2023 19:35:53 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:35:53] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:35:53] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 19:37:53 - initialized ctlbox
+INFO:root:08.Jul 2023 19:37:53 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:37:53] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:37:53] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 19:38:28 - initialized ctlbox
+INFO:root:08.Jul 2023 19:38:28 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:38:28] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:38:28] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 19:38:33 - initialized ctlbox
+INFO:root:08.Jul 2023 19:38:33 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:38:33] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:38:33] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 19:38:37 - initialized ctlbox
+INFO:root:08.Jul 2023 19:38:37 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:38:37] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 19:38:37] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 19:55:40 - initialized ctlbox
+INFO:root:08.Jul 2023 19:55:40 - initialized Pastasauce
+INFO:root:08.Jul 2023 19:55:40 - Truying to call update_info on Pastasauce
+INFO:root:08.Jul 2023 19:55:40 - Truying to call update_info on ctlbox
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_9.0)
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_8.9p1)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:08.Jul 2023 19:55:46 - Pastasauce > Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz
+INFO:root:08.Jul 2023 19:55:47 - Pastasauce > LENOVO
+INFO:root:08.Jul 2023 19:55:49 - ctlbox > Intel(R) Core(TM) i3-9100T CPU @ 3.10GHz
+INFO:root:08.Jul 2023 19:55:49 - Pastasauce > PRETTY_NAME="Slackware 15.0 x86_64 (post 15.0 -current)"
+INFO:root:08.Jul 2023 19:55:50 - ctlbox > Dell Inc.
+INFO:root:08.Jul 2023 19:55:51 - ctlbox > PRETTY_NAME="Ubuntu 22.04.2 LTS"
+INFO:root:08.Jul 2023 20:04:52 - initialized ctlbox
+INFO:root:08.Jul 2023 20:04:52 - initialized Pastasauce
+INFO:root:08.Jul 2023 20:07:19 - initialized ctlbox
+INFO:root:08.Jul 2023 20:07:19 - initialized Pastasauce
+INFO:root:08.Jul 2023 20:08:28 - initialized ctlbox
+INFO:root:08.Jul 2023 20:08:28 - initialized Pastasauce
+INFO:root:08.Jul 2023 20:08:28 - Truying to call update_info on ctlbox
+INFO:root:08.Jul 2023 20:08:28 - Truying to call update_info on Pastasauce
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_9.0)
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_8.9p1)
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:08.Jul 2023 20:08:34 - Pastasauce > Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz
+INFO:root:08.Jul 2023 20:08:35 - Pastasauce > LENOVO
+INFO:root:08.Jul 2023 20:08:37 - ctlbox > Intel(R) Core(TM) i3-9100T CPU @ 3.10GHz
+INFO:root:08.Jul 2023 20:08:37 - Pastasauce > PRETTY_NAME="Slackware 15.0 x86_64 (post 15.0 -current)"
+INFO:root:08.Jul 2023 20:08:38 - ctlbox > Dell Inc.
+INFO:root:08.Jul 2023 20:08:39 - ctlbox > PRETTY_NAME="Ubuntu 22.04.2 LTS"
+INFO:root:08.Jul 2023 20:15:03 - initialized ctlbox
+INFO:root:08.Jul 2023 20:15:03 - initialized Pastasauce
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:16:04 - initialized ctlbox
+INFO:root:08.Jul 2023 20:16:04 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:16:38] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:16:38] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:16:38] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:16:38] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:16:38] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:17:06 - initialized ctlbox
+INFO:root:08.Jul 2023 20:17:06 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:17:06] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:17:06] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 20:17:26 - initialized ctlbox
+INFO:root:08.Jul 2023 20:17:26 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:17:26] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:17:26] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:19:47 - initialized ctlbox
+INFO:root:08.Jul 2023 20:19:47 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:19:47] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:19:48] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:24:47 - initialized ctlbox
+INFO:root:08.Jul 2023 20:24:47 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:26:38] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:26:38] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:26:38] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:26:38] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:26:38] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:root:08.Jul 2023 20:26:53 - initialized ctlbox
+INFO:root:08.Jul 2023 20:26:53 - initialized Pastasauce
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/Labmanager/bin/clients.py', reloading
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:27:12] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:27:12] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:27:43 - initialized ctlbox
+INFO:root:08.Jul 2023 20:27:43 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:27:44] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:27:44] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/Labmanager/bin/clients.py', reloading
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:31:35 - initialized ctlbox
+INFO:root:08.Jul 2023 20:31:35 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:31:35] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:31:35] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 20:31:45 - initialized ctlbox
+INFO:root:08.Jul 2023 20:31:45 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:31:45] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:31:45] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 20:32:07 - initialized ctlbox
+INFO:root:08.Jul 2023 20:32:07 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:33:00] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:33:00] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/Labmanager/bin/clients.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:33:19 - initialized ctlbox
+INFO:root:08.Jul 2023 20:33:19 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:33:38] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:33:38] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/Labmanager/bin/clients.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:35:18 - initialized ctlbox
+INFO:root:08.Jul 2023 20:35:18 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:35:18] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:35:18] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:42:18 - initialized ctlbox
+INFO:root:08.Jul 2023 20:42:18 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:42:36] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:42:36] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:42:36] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:42:37] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:42:37] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:43:10 - initialized ctlbox
+INFO:root:08.Jul 2023 20:43:10 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:43:10] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:43:10] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug: * Detected change in '/home/thomaslinkey/Scripts/LabManager/Labmanager/bin/Controller.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:45:56 - initialized ctlbox
+INFO:root:08.Jul 2023 20:45:56 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:45:56] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:45:56] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:root:08.Jul 2023 20:56:03 - initialized ctlbox
+INFO:root:08.Jul 2023 20:56:03 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:56:03] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 20:56:03] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:03:51] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:03:52] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:03:58] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:03:58] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:03:59] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:03:59] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 408-986-733
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:04:52] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:04:53] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:root:08.Jul 2023 21:04:55 - initialized ctlbox
+INFO:root:08.Jul 2023 21:04:55 - initialized Pastasauce
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:04:55] "POST / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:04:55] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:04:57] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:05:04] "[33mGET /style.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:05:28] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [08/Jul/2023 21:05:28] "[33mGET /style.css HTTP/1.1[0m" 404 -

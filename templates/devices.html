@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+{% for device in devices %}
+<table>
+    <th>{{device}}</th>
+    {%set tempdict =  devices[device].__info__()%}
+            {% for key in tempdict %}
+    <tr>
+        <td>{{ key }}</td>
+            {% if tempdict[key] is mapping %}
+            {%set temp = tempdict[key] %}
+            {% for Val in temp %}
+            <td>{{ temp[val] }}</td>
+            {% endfor %}
+            {% else %}
+        <td>{{ tempdict[key] }}</td>
+        {% endif %}
+    </tr>
+      {% endfor %}
+</table>
+   
+  {% endfor %}
+{% endblock %}
