@@ -7,11 +7,12 @@
 {% block body %}
 
 {% for device in devices %}
-<table>
-    <th>{{device}}</th>
+<table class="table table-hover">
+    <thead>{{device}}</thead>
     {%set tempdict =  devices[device].__info__()%}
             {% for key in tempdict %}
     <tr>
+
         <td>{{ key }}</td>
             {% if tempdict[key] is mapping %}
             {%set temp = tempdict[key] %}
