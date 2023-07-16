@@ -13,6 +13,7 @@
             {% for key in tempdict %}
     <tr>
 
+        <th scope="row">Default</th>
         <td>{{ key }}</td>
             {% if tempdict[key] is mapping %}
             {%set temp = tempdict[key] %}
