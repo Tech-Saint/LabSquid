@@ -45,15 +45,17 @@ class Controller_unit():
     
     ## testing 
 
-    def mass_ssh_command(Device_instances,instruction:str, dev_list:list=None):
+    def mass_ssh_command(self,instruction:str, dev_list:list=None):
         """pass None to dev list to do all instances"""
-        if dev_list == None: dev_list= list(Device_instances.keys())
-        
+        if dev_list == None: dev_list= list(self.Device_instances.keys())
+        if type(dev_list) == str:
+            dev_list=[dev_list]
+
         results = []
         jobs=[]
         with ThreadPoolExecutor(8) as executor:
             for i in dev_list:
-                task = executor.submit(Device_instances[i].dynamic_method_call,instruction)
+                task = executor.submit(self.Device_instances[i].dynamic_method_call,instruction)
                 jobs.append(task)
             for entry in jobs:  
                 result = entry.result(timeout=60)

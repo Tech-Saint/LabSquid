@@ -6,21 +6,9 @@ except:
 import sys
       
 
-def mass_ssh_command(Device_instances,instruction:str, dev_list:list=None) -> None:
-    """pass None to dev list to do all instances"""
-    if dev_list == None: dev_list= list(Device_instances.keys())
-    
-    results = []
-    jobs=[]
-    with ThreadPoolExecutor(8) as executor:
-        for i in dev_list:
-            task = executor.submit(Device_instances[i].dynamic_method_call,instruction)
-            jobs.append(task)
-        for entry in jobs:  
-            result = entry.result(timeout=60)
-            results.append(result)
+def init_backend() -> Controller_unit:
+    """returns ControllerUnit class and a dict of Device_instance classes"""
 
-def init_backend():
     session=Controller_unit()
 
     Device_instances = {}
@@ -30,7 +18,9 @@ def init_backend():
         for future in as_completed(task):
             _ = task[future]
             Device_instances[_["DNS_name"]] = future.result()
-    return Device_instances, session
+
+    session.Device_instances=Device_instances
+    return session
 
 
 if __name__ == "__main__":
