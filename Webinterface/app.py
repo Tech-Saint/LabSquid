@@ -8,7 +8,10 @@ from flask_bootstrap import Bootstrap
 app = Flask(__name__)
 #Bootstrap(app)
 
+from .auth import auth
 @app.route('/', methods=['GET', 'POST'])
+
+app.register_blueprint(auth,url_prefix="/auth/")
 
 def index():
     if request.method == 'POST':
