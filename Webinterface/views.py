@@ -8,15 +8,16 @@ from flask_bootstrap import Bootstrap
 
 views = Blueprint('views', __name__)
 
-@views.route('/')
-def index():
+@views.route('/',methods=['GET', 'POST'])
+def home():
     if request.method == 'POST':
         if request.form.get('action1') == 'VALUE1':
-            DeviceInstances,session=init_backend()
-            return render_template('devices.html', devices=DeviceInstances)
+            session=init_backend()
+
+            return render_template('devices.html', devices=session.DeviceInstances)
         else:
             pass # unknown
     elif request.method == 'GET':
         return render_template('index.html')
     
-    return render_template("index.html")
+    return render_template('index.html')

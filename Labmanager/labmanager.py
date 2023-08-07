@@ -19,7 +19,7 @@ def init_backend() -> Controller_unit:
             _ = task[future]
             Device_instances[_["DNS_name"]] = future.result()
 
-    session.Device_instances=Device_instances
+    session.DeviceInstances=Device_instances
     return session
 
 
