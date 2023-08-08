@@ -60,7 +60,7 @@ class _client:
             "global_delay_factor": 3,
         }
         self.dns_query()
-        self.ping_device()
+        self.ping()
 
     def __str__(self):
         return self.DNS_name
@@ -115,14 +115,16 @@ class _client:
         except:
             log_event(f"failed to get DNS name{self.DNS_name}")
 
-    def ping_device(self):
+    def ping(self):
         """Returns None if successful. On fail will return 1."""
         if platform == "win32": 
             ping = popen("ping -n 1 "+self.Netmiko_settings["host"])
         else: 
-            ping=popen("ping -c 1 "+self.Netmiko_settings["host"])
-        return_code = ping.close()
-        if return_code==None: self.pingable=True
+            ping = popen("ping -c 1 "+self.Netmiko_settings["host"])
+        output = ping.read()
+        ping.close()
+        if "1 received" in output:
+            self.pingable=True
         else: self.pingable=False
         return self.pingable
 
