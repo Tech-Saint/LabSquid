@@ -155,10 +155,13 @@ class gui:
 
         
     def runCommand(self,command:str):
+        device=self.option_var.get()
         try:
-            self.AppControl.mass_ssh_command(command,self.selcteddevice)
-        except AttributeError:
-            self.status.configure(text="no device selected!")
+            output=self.AppControl.command(command,device)
+            print(output)
+            self.status.configure(text=output)
+        except Exception as e:
+            self.status.configure(text=e)
 
     def selectDevice(self, *args):
 
