@@ -11,15 +11,15 @@ def init_backend() -> Controller_unit:
 
     session=Controller_unit()
 
-    Device_instances = {}
+    DeviceInstances = {}
 
     with ThreadPoolExecutor(max_workers=8) as executor:
         task = {executor.submit(init_device_objs,device): device for device in session.device_info["devices"]}
         for future in as_completed(task):
             _ = task[future]
-            Device_instances[_["DNS_name"]] = future.result()
+            DeviceInstances[_["DNS_name"]] = future.result()
 
-    session.DeviceInstances=Device_instances
+    session.DeviceInstances=DeviceInstances
     return session
 
 
@@ -39,23 +39,17 @@ if __name__ == "__main__":
     else:
         pass
 
-    session=Controller_unit()
+    session=init_backend()
 
-    Device_instances = {}
-
-    with ThreadPoolExecutor(max_workers=8) as executor:
-        task = {executor.submit(init_device_objs,device): device for device in session.device_info["devices"]}
-        for future in as_completed(task):
-            _ = task[future]
-            Device_instances[_["DNS_name"]] = future.result()
+    
 
     # test cases:
     # Replace "ctlbox" to test your own devices. Use the 
-    #print("avail ssh cmds" + list(Device_instances["ctlbox"].commands.keys()))
-    #output = Device_instances["ctlbox"].dynamic_method_call("update_info")
+    #print("avail ssh cmds" + list(DeviceInstances["ctlbox"].commands.keys()))
+    #output = DeviceInstances["ctlbox"].dynamic_method_call("update_info")
     
-    mass_ssh_command(Device_instances,"update_info")
-    session.update_db(Device_instances)
-    mass_ssh_command(Device_instances,"ping_device")
+    session.mass_ssh_command(devices=session.DeviceInstances,instruction="update_info")
+    session.update_db(session.DeviceInstances)
+    session.mass_ssh_command(devices=session.DeviceInstances,instruction="ping_device")
             
     

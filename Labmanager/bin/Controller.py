@@ -35,27 +35,27 @@ class Controller_unit():
             self.device_info = json.load(db_temp)
             db_temp.close()
     
-    def update_db(self, Device_instances, dev_list:list=None):
-        if dev_list == None: dev_list= list(Device_instances.keys())
+    def update_db(self, DeviceInstances, dev_list:list=None):
+        if dev_list == None: dev_list= list(DeviceInstances.keys())
         
         for i in dev_list:
-            self.db.update_db(Device_instances[i].device)
+            self.db.update_db(DeviceInstances[i].device)
         self.db.save_db()
     
     
     ## testing 
 
-    def mass_ssh_command(self,instruction:str, dev_list:list=None):
+    def mass_ssh_command(self,instruction:str, devices:list=None):
         """pass None to dev list to do all instances"""
-        if dev_list == None: dev_list= list(self.Device_instances.keys())
-        if type(dev_list) == str:
-            dev_list=[dev_list]
+        if devices == None: devices= list(self.DeviceInstances.keys())
+        if type(devices) == str:
+            devices=[devices]
 
         results = []
         jobs=[]
         with ThreadPoolExecutor(8) as executor:
-            for i in dev_list:
-                task = executor.submit(self.Device_instances[i].dynamic_method_call,instruction)
+            for i in devices:
+                task = executor.submit(self.DeviceInstances[i].dynamic_method_call,instruction)
                 jobs.append(task)
             for entry in jobs:  
                 result = entry.result(timeout=60)
