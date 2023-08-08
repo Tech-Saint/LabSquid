@@ -47,13 +47,11 @@ class _Database():
         
 
     def save_db(self):
-        self.prep_db()        
-        try:
-            with open(os.path.join(os.getcwd(),"bin","db","device_db.json"), 'w', encoding='utf-8') as f:
-                json.dump(self.data, f, ensure_ascii=False, indent=3)
-        except:
-            with open(os.path.join(os.getcwd(),"device_db.json"), 'w', encoding='utf-8') as f:
-                json.dump(self.data, f, ensure_ascii=False, indent=3)
+        self.prep_db()
+        path, filename = os.path.split(os.path.realpath(__file__))      
+
+        with open(os.path.join(path,"device_db.json"), 'w', encoding='utf-8') as f:
+            json.dump(self.data, f, ensure_ascii=False, indent=3)
         return 
 
     def load_db(self):
