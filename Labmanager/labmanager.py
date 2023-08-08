@@ -40,16 +40,9 @@ if __name__ == "__main__":
         pass
 
     session=init_backend()
+    session.command(devices=["Pastasauce"],instruction="ping_device")
 
-    
-
-    # test cases:
-    # Replace "ctlbox" to test your own devices. Use the 
-    #print("avail ssh cmds" + list(DeviceInstances["ctlbox"].commands.keys()))
-    #output = DeviceInstances["ctlbox"].dynamic_method_call("update_info")
-    
-    session.mass_ssh_command(devices=session.DeviceInstances,instruction="update_info")
+    session.command(devices=session.DeviceInstances,instruction="update_info")
     session.update_db(session.DeviceInstances)
-    session.mass_ssh_command(devices=session.DeviceInstances,instruction="ping_device")
             
     
