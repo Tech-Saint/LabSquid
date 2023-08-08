@@ -164,3 +164,4 @@ cython_debug/
 Labmanager/bin/db/
 
 Debug.txt
+Labmanager/bin/db/device_db.json
