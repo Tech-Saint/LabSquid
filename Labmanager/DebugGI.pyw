@@ -2,58 +2,134 @@ from labmanager import init_backend
 import tkinter as tk
 from tkinter import ttk
 
-class gui(tk.Tk):
-    def __init__(self,appcontrol):
+class gui:
+    def __init__(self,appcontrol,window:tk):
         self.AppControl = appcontrol
-
-        super().__init__()
-
-        self.title("Debug_interface")
-        self.configure(background='#1A1A24')
-
-        self.grid_rowconfigure(3, weight=1)
-        self.grid_columnconfigure(4, weight=1)
-
-        self.screen_width = self.winfo_screenwidth()
-        self.screen_height = self.winfo_screenheight()
-        self.window_height= self.winfo_height()
 
         style = ttk.Style()
         style.configure('Horizontal.TSeparator', background='#2F2F3F')
+        self.textcolor = "grey87"
+        self.bgcolor = "#090C21"
+        self.btncolor = "#282840"
+        self.accenttext = "#41FAD4"
+        self.accentbg = "#173057"
+        self.accent = "#3A7CDE"
+        self.accent2 = "#4DBCF5"
 
-        self.option_var = tk.StringVar(self)
+        style = ttk.Style()
+        style.theme_use("alt")
+        
+        style.configure('.',
+            font = "Arial, 15",             
+            borderwidth = 0, )
+        
+        style.layout("Treeview", [('Treeview.treearea', {'sticky': 'nswe'})])
+
+        style.configure('TLabel', background = self.bgcolor, foreground = self.textcolor)
+        style.configure('TFrame', background = self.btncolor)
+        style.configure('TButton', background = self.btncolor, foreground = self.accenttext)
+        
+        style.configure("bar.Horizontal.TProgressbar",
+                        troughcolor = self.btncolor, 
+                        bordercolor = self.btncolor,
+                        background = self.accent2,
+                        lightcolor = self.accent2, 
+                        darkcolor = self.accent2)
+        
+        style.map('main.TButton',
+        relief = 'flat',
+        height = "17",
+        foreground = [('!active', self.textcolor), ('pressed', self.accent2), ('active', self.accenttext)],
+        background = [('!active', self.btncolor), ('pressed', self.bgcolor), ('active', self.accent)])
+        
+        style.map('Action.TButton',
+        relief = 'flat',
+        height = "17",
+        foreground = [('!active', "#F7F4E4"), ('pressed', self.textcolor), ('active', self.accent2)],
+        background = [('!active', self.accent), ('pressed', self.btncolor), ('active', self.accent)])
+        
+        style.map('main.TMenubutton',
+        relief = 'flat',
+        height = "17",
+        foreground = [('!active', self.textcolor), ('pressed', self.accent2), ('active', self.accenttext)],
+        background = [('!active', self.btncolor), ('pressed', self.bgcolor), ('active', self.accent)])
 
 
-        self.creator = tk.Label(bg="#1A1A24",fg="skyblue", borderwidth=0,font=("Helvetica",11), text= "Built by Linkeyth\nV0.9 - 6/29/23" , justify=tk.RIGHT, anchor="w")
+        style.configure("TScrollbar",
+                background = self.btncolor,
+                gripcount = 0,
+                reilef = "flat",
+                troughcolor = self.accent,
+                bordercolor = self.bgcolor,
+                lightcolor = self.accent2, 
+                darkcolor = self.accent2,
+                arrowcolor = self.btncolor)
+        
+        style.configure("Treeview",
+                background = self.btncolor,
+                foreground = self.accent2,
+                lightcolor = self.accent2, 
+                darkcolor = self.accent2,
+                borderwidth = 5,
+                bordercolor = self.bgcolor,
+                rowheight = 35,
+                fieldbackground = self.btncolor,
+                troughcolor = self.btncolor, )
+        
+        style.configure('Treeview.Heading',
+                background = self.accenttext,
+                foreground = self.btncolor,
+                font = "Arial, 15",
+                relief = tk.RIDGE,
+                fieldbackground = self.accent)
+        
+        
+        style.configure('TCheckbutton',
+                focuscolor = '',
+                font = ['arial', '15', 'italic'])
 
-        self.instruction = tk.Label(
-            text="For issues, Please reach out to Linkeyth on slack or via email." 
-                ,font=("Helvetica", 12 , "italic"), padx=70, height=5, bg="#282836",fg="#E4E4F7")
+        style.map('TCheckbutton',
+          foreground = [('disabled', "white"),
+                      ('pressed', "white"),
+                      ('active', self.textcolor),
+                      ('!active', self.accenttext)],
+          background = [('disabled', self.accent),
+                      ('pressed', '!focus', self.accent),
+                      ('active', self.bgcolor),
+                      ('!active', self.bgcolor)],
+          indicatorcolor = [('selected', self.accent),
+                          ('pressed', self.bgcolor)])
 
-        self.scrollbar = tk.Scrollbar(self)
+        style.map("Treeview",
+                    background = [('selected', self.accent2)],
+                    foreground = [('selected', self.accent)])
+        
+        
+        self.window = window
+        self.window.configure(background = self.bgcolor)
 
 
-            ## button setup
-        style.theme_use("clam")
-        style.map('head.TButton',
-                relief='flat',
-                height="17",
-                        foreground=[('!active', 'skyblue'),('pressed', 'yellow'), ('active', 'White')],
-                        background=[ ('!active','#282840'),('pressed', '#1A1A24'), ('active', '#2F2F3F')])
+        self.window.title("Debug_interface")
 
-        self.status= tk.Label(bg="#1A1A24",fg="yellow", borderwidth=0,font=("Helvetica",11), text= "Initializing" , justify=tk.RIGHT, anchor="w")
+        self.window.grid_columnconfigure(2, weight = 1)
+        self.window.grid_rowconfigure(3, weight = 1)
+
+        
+        self.scrollbar = tk.Scrollbar(self.window)
+
+
+        self.status= tk.Label(bg=self.bgcolor,fg="yellow", borderwidth=0,font=("Helvetica",11), text= "Initializing" , justify=tk.RIGHT, anchor="w")
         self.status.grid(column=4,row=0)
 
 
-        self.listbox = tk.Listbox(self,
+        self.listbox = tk.Listbox(self.window,
                         borderwidth=0,
                         highlightthickness=0,
-                        bg = "#282836",
+                        bg = self.accentbg,
                         activestyle = 'dotbox',
                         font = "Arial, 20", 
                         yscrollcommand = self.scrollbar.set,
-                        highlightbackground="skyblue",
-                        fg = "yellow")
+                        fg = self.accent)
         
         self.listbox.insert(0,"Select a Device")
 
@@ -62,22 +138,20 @@ class gui(tk.Tk):
 
         self.scrollbar.grid(row=3, column=1,columnspan=5, sticky="nes")
 
-        self.Devicenames=list(self.AppControl.Device_instances.keys())
+        self.Devicenames=list(self.AppControl.DeviceInstances.keys())
 
-        option_menu = ttk.OptionMenu(
-            self,
-            self.option_var,
-            "Select Device",
-            *self.Devicenames,
-            command=self.selectDevice)
+        self.option_var = tk.StringVar(self.window)
+
+
+        self.table_config = ttk.OptionMenu(self.window, self.option_var, "select device", *self.Devicenames, style = "main.TMenubutton", command=self.selectDevice)
+        self.table_config['menu'].config(bg = self.btncolor, fg = self.textcolor, activebackground =  self.accent, activeforeground =  self.accenttext, relief = 'flat')
+        self.table_config.grid(column = 0, padx = (40, 0), row = 0, pady = 20, sticky = "w")
         
-        option_menu.grid(row=0, column=0,ipadx=4, sticky="w")
+      
         self.setupbuttons()
 
     def setupbuttons(self):
-        head = ttk.Button(self, text="ping",style="head.TButton",command =lambda: self.runCommand("ping")).grid(row=1, column=0,ipadx=4, sticky="w")
-        head = ttk.Button(self, text="ping",style="head.TButton",command =lambda: self.runCommand("ping")).grid(row=1, column=1,ipadx=4, sticky="w")
-        head = ttk.Button(self, text="ping",style="head.TButton",command =lambda: self.runCommand("ping")).grid(row=1, column=2,ipadx=4, sticky="w")
+        head = ttk.Button(self.window, text="ping",style="head.TButton",command =lambda: self.runCommand("ping")).grid(row=1, column=0,ipadx=4, sticky="w")
 
         
     def runCommand(self,command:str):
@@ -93,18 +167,19 @@ class gui(tk.Tk):
         self.listbox.delete(0,self.listbox.size())
         Disallowlist = ("sudo","password","secret")
 
-        for i,k in enumerate(self.AppControl.Device_instances[self.selcteddevice].device): 
+        for i,k in enumerate(self.AppControl.DeviceInstances[self.selcteddevice].device): 
             if k in Disallowlist:
                 continue
-            self.listbox.insert(i,f" {k}: {self.AppControl.Device_instances[self.selcteddevice].device[k]}")
+            self.listbox.insert(i,f" {k}: {self.AppControl.DeviceInstances[self.selcteddevice].device[k]}")
         pass
 
-
-
-
+    def loop(self):
+        self.window.after(10,self.loop)
 
 if __name__ == "__main__":
+    root = tk.Tk()
     AppControl=init_backend()
-    app = gui(AppControl)
-    app.mainloop()
+    app = gui(AppControl,root)
+    root.after(10,app.loop)
+    root.mainloop()
 
