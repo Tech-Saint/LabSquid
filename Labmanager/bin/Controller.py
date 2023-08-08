@@ -45,12 +45,12 @@ class Controller_unit():
     
     ## testing 
 
-    def mass_ssh_command(self,instruction:str, devices:list=None):
+    def command(self,instruction:str, devices:list=None):
         """pass None to dev list to do all instances"""
         if devices == None: devices= list(self.DeviceInstances.keys())
         if type(devices) == str:
             devices=[devices]
-
+        
         results = []
         jobs=[]
         with ThreadPoolExecutor(8) as executor:
