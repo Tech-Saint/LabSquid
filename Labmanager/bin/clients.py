@@ -70,10 +70,10 @@ class _client:
         ATRLIST = [attr for attr in vars(self) if not callable(getattr(self, attr)) and not attr.startswith("__") and attr not in ["device","Netmiko_settings"] ]
         _={}
         for key in ATRLIST:
-            _[key]=str(getattr(self,key))
+            _[key]=(getattr(self,key))
         return _
     
-    def init_ssh(self):
+    def __init_ssh(self):
         self.busy = True
         try:
             net_connect = ConnectHandler(
@@ -132,7 +132,7 @@ class _client:
         Returns a list of outputs that starts with "DNS name > "
         """
         self.busy=True
-        self.net_connect=self.init_ssh()
+        self.net_connect=self.__init_ssh()
         output_list=[]
         self.net_connect.find_prompt()
         self.net_connect.enable(pattern="password")
