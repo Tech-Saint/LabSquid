@@ -6,15 +6,36 @@
 
 {% block body %}
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+{%  if  messages %}
+{%  for  category,message  in  messages %}
+
+<div class=" d-flex align-items-center justify-content-between alert alert-{{category}} alert-dismissible fade show" role="alert">
+    <strong style="padding-left: 2rem;">{{ message }}</strong> 
+    <a type="button" class="close fade show float-end btn rounded-circle " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true" >&times;</span>
+    </a>
+  </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
 <div class="p-5">
-  <div class=" d-flex align-items-center justify-content-between">
-    <h1>{{device}}</h1>
+
+  
+<div class=" d-flex align-items-center justify-content-between rounded" style="background-color: #173057;  padding: 5px;">
+  <h1>{{device.capitalize()}}</h1>
+  <div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-info" style="margin-right: 5px;">
+      Edit
+    </button>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ConfirmDel">
       Delete
     </button>
   </div>
-
+</div>
 
   <!-- Modal -->
   <div class="modal fade" id="ConfirmDel" tabindex="-1" role="dialog" aria-labelledby="ConfirmDelLabel" aria-hidden="true">
@@ -22,7 +43,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="ConfirmDelLabel">Delete {{ device }}?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close rounded-circle" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -32,30 +53,102 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-danger">Delete</button>
+          <form method="post" >
+            <button type="submit" name="action" value="DELETE" class="btn btn-danger">Delete</button>
+        </form>        
         </div>
       </div>
     </div>
   </div>
-  <hr>
-  <table class="table table-hover table-boardered">
-        <tr>
-          {%set tempdict = lab.DeviceInstances[device].__info__()%}
-          {% for key,val in tempdict.items() %}
-            <td>{{ key }}</td>
-                {% if val is mapping %}
-                {% set temp = [] %}
-                  {% for Key in val %}
-                  {% set _ = temp.append(Key) %}
-                {% endfor %}
-                <td>{{temp| join(', ')}}</td>
-                {% else %}
-            <td>{{ val }}</td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-  </table>
 
-</div>
+
+      
+  
+    <!-- Modal -->
+    <div class="modal fade" id="running" tabindex="-1" role="dialog" aria-labelledby="running" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <strong>Running Comand...</strong>
+              <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <hr>
+  <div class="container-fluid">
+    <div class="row  d-flex justify-content-end">
+      <div class="col-lg-4 col-md-5 col-sm-6 col-xs-6">
+        <div class="card" >
+          <div class="card-header">
+            Available tasks
+          </div>
+          <ul class="list-group list-group-flush ">
+            {% for Item in lab.DeviceInstances[device].__methods__() %}
+            <li class="list-group-item  d-flex align-items-center justify-content-between">{{Item}}
+              <form method="post" >
+                <button type="submit" name="action" data-toggle="modal" data-target="#running" value={{Item}} class="btn btn-success">Run</button>
+            </form>  
+            </li>
+            {%endfor%}
+          </ul>
+        </div>
+      </div>
+    </div>
+      <div class="row">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-status-tab" data-bs-toggle="tab" data-bs-target="#nav-status" type="button" role="tab" aria-controls="nav-status" aria-selected="true">status</button>
+              <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="false">info</button>
+              <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-status" role="tabpanel" aria-labelledby="nav-status-tab">
+              <table class="table table-hover table-boardered border border-primary rounded " style="background-color: dimgray;">
+                <tr>
+                  {%set tempdict = lab.DeviceInstances[device].__info__() %}
+                  {% for key,val in tempdict.items() %}
+                    <td class="  ">{{ key }}</td>
+                        {% if val is mapping %}
+                        {% set temp = [] %}
+                          {% for Key in val %}
+                          {% set _ = temp.append(Key) %}
+                        {% endfor %}
+                        <td class="  ">{{temp| join(', ')}}</td>
+                        {% else %}
+                    <td class="  ">{{ val }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+            <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+              <table class="table table-hover table-boardered border border-primary rounded " >
+                <tr>
+                  {%set tempdict = lab.DeviceInstances[device].device %}
+                  {% for key,val in tempdict.items() %}
+                    <td class="  " >{{ key }}</td>
+                        {% if val is mapping %}
+                        {% set temp = [] %}
+                          {% for Key in val %}
+                          {% set _ = temp.append(Key) %}
+                        {% endfor %}
+                        <td class="  ">{{temp| join(', ')}}</td>
+                        {% else %}
+                    <td class="  " >{{ val }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+          </div>
+       
+        </div>
+      </div>
+  </div>
+  
 
 {% endblock %}

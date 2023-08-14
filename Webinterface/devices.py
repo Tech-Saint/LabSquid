@@ -13,8 +13,21 @@ def showdevices():
 
     return render_template('Alldevices.html' )
 
-@devices.route('/devices/<Device>')
+@devices.route('/devices/<Device>',methods=('GET', 'POST'))
 def sh_single_dev(Device):
+    if request.method=="POST":
+        if request.form["action"]=='DELETE':
+            session.db.remove_device(session.DeviceInstances[Device].device)
+            session.db.load_db()
+                            
+            del session.DeviceInstances[Device]
+            return showdevices()
+        else:
+            try:
+                result=session.command(devices=Device ,instruction=request.form["action"])
+                flash(f"Success fully ran with result:{result}","success")
+            except Exception as e:
+                flash(f"Failed to run due to error: \n{e}","danger")
 
     return render_template('Device.html',device=Device)
 
