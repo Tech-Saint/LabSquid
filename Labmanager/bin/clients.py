@@ -47,18 +47,20 @@ class _client:
                 log_event(best_match) # Name of the best device_type to use further
                 log_event(guesser.potential_matches)
                 device ['netmiko_type'] = best_match
-                log_event(f"{self.DNS_name}> Successfully guessed the device.")
+                log_event(f"{self.DNS_name}> Successfully guessed the SSH format.")
 
-            except:raise NotImplementedError
-        
-        self.Netmiko_settings = {
-            "device_type": device ['netmiko_type'],
-            "host": device ['ip'],
-            "username": device ['username'],
-            "password": device ['password'],
-            "secret": device ['password'],
-            "global_delay_factor": 3,
-        }
+            except:log_event(f"{self.DNS_name}> Failed to guess the SSH format.")
+        try:
+            self.Netmiko_settings = {
+                "device_type": device ['netmiko_type'],
+                "host": device ['ip'],
+                "username": device ['username'],
+                "password": device ['password'],
+                "secret": device ['password'],
+                "global_delay_factor": 3,
+            }
+        except Exception as e:
+            log_event(f"{self.DNS_name}> {e}")
         self.dns_query()
         self.ping()
 
