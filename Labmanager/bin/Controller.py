@@ -47,20 +47,24 @@ class Controller_unit():
 
     def command(self,instruction:str, devices:list=None):
         """pass None to dev list to do all instances"""
+
         if devices == None: devices= list(self.DeviceInstances.keys())
-        if type(devices) == str:
+        elif type(devices) != list:
             devices=[devices]
+        for index,value in enumerate(devices):
+            if type(value) == str:
+                devices[index]=self.DeviceInstances[value]
         
         results = []
         jobs=[]
         with ThreadPoolExecutor(8) as executor:
             for i in devices:
-                task = executor.submit(self.DeviceInstances[i].dynamic_method_call,instruction)
+                task = executor.submit(i._client__dynamic_method_call,instruction)
                 jobs.append(task)
             for entry in jobs:  
                 result = entry.result(timeout=60)
                 results.append(result)
-
+        return results
 """  
 def sort_device_db(data,db):
     ip_regex=r"(?:[\d]{1,3})"

@@ -17,7 +17,7 @@ def init_device_objs(device:dict) -> object:
         case "cisco":
             return network(device)
 
-class _client:
+class __client:
 
     """
     This is the common class with that all devices share.\n
@@ -76,6 +76,14 @@ class _client:
             _[key]=(getattr(self,key))
         return _
     
+    def __methods__(self):
+        """returns a list of methods"""
+        ATRLIST = [attr for attr in dir(self) if callable(getattr(self, attr)) and not attr.startswith("_") and attr not in ["device","Netmiko_settings"] ]
+        _={}
+        for key in ATRLIST:
+            _[key]=(getattr(self,key))
+        return _
+    
     def __init_ssh(self):
         self.busy = True
         try:
@@ -93,7 +101,7 @@ class _client:
             self.busy=False
 
 
-    def dynamic_method_call(self, func: str, *args, **kwargs):
+    def __dynamic_method_call(self, func: str, *args, **kwargs):
         """Prob really insecure. Should look into turning this into a secure method call.\n
         Added so I can just list out strings of available methods for each class and \n
         then from the front end select them to call the function.\n
@@ -157,9 +165,11 @@ class _client:
         ## TODO add thread to check on status of ip. 
         output_list= self.execute_cmds(self.commands["reboot"])
 
-class linux(_client):
+class linux(__client):
     
     def __init__(self, device:str):
+        super().__init__(device)
+
         self.commands= {
                 "update_info":[
                     "sudo dmidecode --string='processor-version'",
@@ -169,7 +179,6 @@ class linux(_client):
                 "shutdown":["sudo shutdown"],
                 "reboot":["sudo reboot"]
                 }
-        _client.__init__(self,device)
 
     def update_info(self):
         """This updates the class instance's copy of the data base for its respective entry.
@@ -184,10 +193,10 @@ class linux(_client):
         self.device["os_ver"]=output_list[2].replace((self.DNS_name+'> PRETTY_NAME="'),"")
         return "updated"
 
-class win32(_client):
+class win32(__client):
     
     def __init__(self, device:str):
-        _client.__init__(self,device)
+        super().__init__(device)
 
         self.commands= {
         "update_info":[
@@ -220,10 +229,10 @@ class win32(_client):
         return "Updated"
 
 
-class network(_client):
+class network(__client):
     # Not able to test as I do not have a cisco sw. 
     def __init__(self, device:str):
-        _client.__init__(self,device)
+        super().__init__(device)
         
         self.commands= {
         "update_info":["sh mac address-table | include Gi([1-9])/0/([1-9])",
