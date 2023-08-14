@@ -7,7 +7,36 @@
 {% block body %}
 
 <div class="p-5">
-  <h1>{{device}}</h1>
+  <div class=" d-flex align-items-center justify-content-between">
+    <h1>{{device}}</h1>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ConfirmDel">
+      Delete
+    </button>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="ConfirmDel" tabindex="-1" role="dialog" aria-labelledby="ConfirmDelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ConfirmDelLabel">Delete {{ device }}?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>Are you sure you want to delete {{ device }}?</h3>
+          <div class="alert alert-danger">Warning: This cannot be undone!</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <hr>
   <table class="table table-hover table-boardered">
         <tr>
