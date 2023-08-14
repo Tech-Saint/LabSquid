@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<div class="p-5">
+  <h1>{{device}}</h1>
+  <hr>
+  <table class="table table-hover table-boardered">
+        <tr>
+          {%set tempdict = lab.DeviceInstances[device].__info__()%}
+          {% for key,val in tempdict.items() %}
+            <td>{{ key }}</td>
+                {% if val is mapping %}
+                {% set temp = [] %}
+                  {% for Key in val %}
+                  {% set _ = temp.append(Key) %}
+                {% endfor %}
+                <td>{{temp| join(', ')}}</td>
+                {% else %}
+            <td>{{ val }}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+  </table>
+
+</div>
+
+{% endblock %}
