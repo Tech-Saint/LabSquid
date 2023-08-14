@@ -1,13 +1,15 @@
 import json, cryptography, os,re
 from sys import platform,path 
 
+from Labmanager.bin.Localutils import log_event
+
 #TODO figure out password storage.
 
 class _Database():
     """Creates and loads a DB object to change and update."""
     def __init__(self):
         self.load_db()
-
+        log_event("LoadedDB")
     def __repr__(self):
         return self.data
 
@@ -31,6 +33,7 @@ class _Database():
                     else:valid+=1
 
                 except ValueError: self.fix_entry("ip",i)
+        log_event("DB was successfully checked")
         # self.data["devices"] = sorted(self.data["devices"], key=lambda d: d['ip'])
         # Commented out as the device sort may cause issues later when db has not been passed to each thread. 
         # Fast enough for now. Uses Timsort to sort thr DB.
@@ -52,7 +55,8 @@ class _Database():
 
         with open(os.path.join(path,"device_db.json"), 'w', encoding='utf-8') as f:
             json.dump(self.data, f, ensure_ascii=False, indent=3)
-        return 
+        return log_event("Saved DB")
+        
 
     def load_db(self):
         try:
@@ -66,11 +70,21 @@ class _Database():
         """Give this a single database entry."""
         index=entry["id"]
         self.data["devices"][index]=entry
+        log_event(f"Updated entry:{entry['DNS_name']}")
 
     def add_device(self,entry:dict):
-        entry["id"]=len(self.data["devices"])+1
-        self.data["devices"][entry["id"]]=entry
+        entry["id"]=len(self.data["devices"])
+        self.data["devices"].append(entry)
         self.save_db()
+        log_event(f"Added entry:{entry['DNS_name']}")
+    
+    def remove_device(self,entry:dict):
+        
+        index=entry["id"]
+        del self.data["devices"][index]
+        self.save_db()
+        log_event(f"Removed entry:{entry['DNS_name']}")
+
 
 if __name__ == "__main__":
 
