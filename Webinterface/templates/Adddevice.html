@@ -1,25 +1,53 @@
 {% extends "base.html" %}
 
 {% block head %}
+<style>
+    .form-group {
+      margin-bottom: 3%;
 
+    }
+    </style>
 {% endblock %}
 
 {% block body %}
-<form method="post" style="padding: 10%;">
-  <h2 align="left">Add new Device</h2>
-  <select class="form-select" style="float: inline-end;" aria-label="Default select example">
-    <option selected>Device Type</option>
-    <option value="linux">Linux</option>
-    <option value="win32">Windows</option>
-    <option value="cisco">Cisco</option>
-  </select>
+{% with messages = get_flashed_messages() %}
+{%  if  messages %}
+{%  for  message  in  messages %} 
+<div class=" d-flex align-items-center justify-content-between alert alert-danger alert-dismissible fade show" role="alert">
+    <strong style="padding-left: 2rem;">Hold up! {{ message }}</strong> 
+    <a type="button" class="close fade show float-end btn " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true" >&times;</span>
+    </a>
+  </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+
+
+<form method="post" class="p-5"">
+    <span class=" d-flex align-items-center justify-content-between">
+        <h2 align="left">Add a New Device</h2>
+        <div class="form-group "style="  margin-top: auto; margin-bottom: auto;">
+          <select class="form-group btn btn-outline-primary text-light" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select example">
+              <option selected>Device Type</option>
+              <option value="linux">Linux</option>
+              <option value="win32">Windows</option>
+              <option value="cisco">Cisco</option>
+          </select>
+          </div>
+    </span>
+
+  <hr>
+
   <div class="form-group">
     <label for="DNSname">DNS name</label>
     <input
-      type="DNSname"
+      type="DNS_name"
       class="form-control"
-      id="DNSname"
-      name="DNSname"
+      id="DNS_name"
+      name="DNS_name"
       placeholder="DNS name"
     />
   </div>
@@ -29,7 +57,7 @@
       type="IPaddress"
       class="form-control"
       id="IPaddress"
-      name="IPaddress"
+      name="ip"
       placeholder="IP address"
     />
   </div>
@@ -39,7 +67,7 @@
       type="Username"
       class="form-control"
       id="Username"
-      name="Username"
+      name="username"
       placeholder="Username"
     />
   </div>
@@ -63,7 +91,7 @@
       placeholder="Confirm Password"
     />
   </div>  
-  <button type="submit" class="btn btn-success text-dark" style="margin-top: 10%;">Add</button>
+  <button type="submit" class="btn btn-success text-dark mid" >Add</button>
 
 </form>
 
