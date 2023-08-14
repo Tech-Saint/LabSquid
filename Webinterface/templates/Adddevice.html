@@ -15,7 +15,7 @@
 {%  for  message  in  messages %} 
 <div class=" d-flex align-items-center justify-content-between alert alert-danger alert-dismissible fade show" role="alert">
     <strong style="padding-left: 2rem;">Hold up! {{ message }}</strong> 
-    <a type="button" class="close fade show float-end btn " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
+    <a type="button" class="close fade show float-end btn rounded-circle " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true" >&times;</span>
     </a>
   </div>
@@ -30,7 +30,7 @@
     <span class=" d-flex align-items-center justify-content-between">
         <h2 align="left">Add a New Device</h2>
         <div class="form-group "style="  margin-top: auto; margin-bottom: auto;">
-          <select class="form-group btn btn-outline-primary text-light" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select example">
+          <select class="form-group btn btn-outline-warning btn-lg" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select example">
               <option selected>Device Type</option>
               <option value="linux">Linux</option>
               <option value="win32">Windows</option>
