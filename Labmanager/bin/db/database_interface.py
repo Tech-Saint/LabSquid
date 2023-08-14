@@ -66,8 +66,11 @@ class _Database():
         """Give this a single database entry."""
         index=entry["id"]
         self.data["devices"][index]=entry
-        
 
+    def add_device(self,entry:dict):
+        entry["id"]=len(self.data["devices"])+1
+        self.data["devices"][entry["id"]]=entry
+        self.save_db()
 
 if __name__ == "__main__":
 
