@@ -120,9 +120,9 @@ class _client:
     def ping(self):
         """Returns None if successful. On fail will return 1."""
         if platform == "win32": 
-            ping = popen("ping -n 1 "+self.Netmiko_settings["host"])
+            ping = popen("ping -n 1 "+self.device["ip"])
         else: 
-            ping = popen("ping -c 1 "+self.Netmiko_settings["host"])
+            ping = popen("ping -c 1 "+self.device["ip"])
         output = ping.read()
         ping.close()
         if "1 received" in output:
