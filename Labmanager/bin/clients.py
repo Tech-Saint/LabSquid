@@ -8,6 +8,7 @@ from .Localutils import *
 
 
 def init_device_objs(device:dict) -> object:
+    """Determines correct class based on device type"""
     match device["device_type"]:
         case "win32":
             return win32(device)
