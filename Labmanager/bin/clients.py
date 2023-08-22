@@ -28,7 +28,7 @@ class __client:
         
         self.device = device
         self.DNS_name = device ["DNS_name"]
-        self.os_type= device ["device_type"]
+        self.os_type = device ["device_type"]
         log_event(f"initialized {self.DNS_name}")
         self.busy=False
         try: device ['netmiko_type']
@@ -38,6 +38,7 @@ class __client:
             try:
 
                 guesser = SSHDetect(
+                    device_type='autodetect',
                     host=device ['ip'],
                     username = device ['username'],
                     password = device ['password'],
@@ -46,11 +47,11 @@ class __client:
                 
                 best_match = guesser.autodetect()
                 log_event(best_match) # Name of the best device_type to use further
-                log_event(guesser.potential_matches)
                 device ['netmiko_type'] = best_match
                 log_event(f"{self.DNS_name}> Successfully guessed the SSH format.")
 
-            except:log_event(f"{self.DNS_name}> Failed to guess the SSH format.")
+            except Exception as e:
+                log_event(f"{self.DNS_name}> Failed to guess the SSH format due to error:{e}")
         try:
             self.Netmiko_settings = {
                 "device_type": device ['netmiko_type'],
@@ -65,6 +66,15 @@ class __client:
         self.dns_query()
         self.ping()
 
+    def __status__(self) -> dict:
+        status_dict={}
+        status_dict["ip"]=self.device["ip"]
+        status_dict["Os_type"]=self.os_type
+        status_dict["pingable"]=self.pingable
+        status_dict["Roles"]="Not implemented"
+
+        return status_dict
+
     def __str__(self):
         return self.DNS_name
     
@@ -78,7 +88,7 @@ class __client:
     
     def __methods__(self):
         """returns a list of methods"""
-        ATRLIST = [attr for attr in dir(self) if callable(getattr(self, attr)) and not attr.startswith("_") and attr not in ["device","Netmiko_settings"] ]
+        ATRLIST = [attr for attr in dir(self) if callable(getattr(self, attr)) and not attr.startswith("_") and attr not in ["device","execute_cmds","Netmiko_settings"] ]
         _={}
         for key in ATRLIST:
             _[key]=(getattr(self,key))
@@ -92,7 +102,37 @@ class __client:
             ) 
             net_connect.find_prompt()
             return net_connect
+        
+        except AttributeError:
+            log_event(f"{self.DNS_name}> Netmiko Type does not exist, trying to guess it now...")
+            try:
 
+                guesser = SSHDetect(
+                    device_type='autodetect',
+                    host= self.device ['ip'],
+                    username = self.device ['username'],
+                    password = self.device ['password'],
+                    secret =  self.device ['password'],
+                    )
+                
+                best_match = guesser.autodetect()
+                log_event(best_match) # Name of the best device_type to use further
+                self.device ['netmiko_type'] = best_match
+                log_event(f"{self.DNS_name}> Successfully guessed the SSH format.")
+
+            except Exception as e:
+                log_event(f"{self.DNS_name}> Failed to guess the SSH format due to error:{e}")
+            try:
+                self.Netmiko_settings = {
+                    "device_type": self.device ['netmiko_type'],
+                    "host": self.device ['ip'],
+                    "username": self.device ['username'],
+                    "password": self.device ['password'],
+                    "secret": self.device ['password'],
+                    "global_delay_factor": 3,
+                }
+            except Exception as e:
+                log_event(f"{self.DNS_name}> {e}")
         except (NetMikoAuthenticationException, NetMikoTimeoutException):
             log_event("Could not authenticate in time to {}\nExiting...".format(self.Netmiko_settings["host"]))
             self.busy=False
@@ -122,7 +162,10 @@ class __client:
         """
         self.DNS_exist=False
         try:
-            self.DNS_exist=bool(gethostbyname(self.DNS_name))
+            ip=gethostbyname(self.DNS_name)
+            if ip!=self.device ['ip'] and ip != "":
+                self.device['ip']=ip
+            self.DNS_exist=bool(ip)
         except:
             log_event(f"failed to get DNS name{self.DNS_name}")
 
@@ -130,14 +173,20 @@ class __client:
         """Returns None if successful. On fail will return 1."""
         if platform == "win32": 
             ping = popen("ping -n 1 "+self.device["ip"])
+            output = ping.read()
+            ping.close()
+            if "Received = 1" in output:
+                self.pingable=True
+            else: self.pingable=False
+            return self.pingable
         else: 
             ping = popen("ping -c 1 "+self.device["ip"])
-        output = ping.read()
-        ping.close()
-        if "1 received" in output:
-            self.pingable=True
-        else: self.pingable=False
-        return self.pingable
+            output = ping.read()
+            ping.close()
+            if "1 received" in output:
+                self.pingable=True
+            else: self.pingable=False
+            return self.pingable
 
     def execute_cmds(self,command_lst:list) -> list:
         """
@@ -175,6 +224,7 @@ class linux(__client):
                     "sudo dmidecode --string='processor-version'",
                     "sudo dmidecode --string='system-manufacturer'",
                     'cat /etc/*-release | grep -i "PRETTY_NAME"',
+                    "sudo dmidecode -s system-product-name"
                     ],
                 "shutdown":["sudo shutdown"],
                 "reboot":["sudo reboot"]
@@ -191,6 +241,7 @@ class linux(__client):
         self.device["cpu"]=output_list[0].replace((self.DNS_name+"> "),"")
         self.device["mfg"]=output_list[1].replace((self.DNS_name+"> "),"")
         self.device["os_ver"]=output_list[2].replace((self.DNS_name+'> PRETTY_NAME="'),"")
+        self.device["Device"]=output_list[3].replace((self.DNS_name+'> '),"")
         return "updated"
 
 class win32(__client):

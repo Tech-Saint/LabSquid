@@ -2,16 +2,40 @@ import json, os, configparser
 from concurrent.futures import ThreadPoolExecutor , as_completed
 from .db.database_interface import  _Database
 from .clients import *
+from datetime import datetime,timezone,timedelta
 
+import math, cpuinfo, socket, uuid, platform,psutil
 
 output_list=[]
 class Controller_unit():
     """Orchistrates and holds info to give back to each device instance."""
     def __init__(self):
-
+        self.last_run_command={}
+        self.__init_time=datetime.now(timezone.utc).timestamp()
         self.path_of_tool = path[0]
         self.file_setup()
 
+    def settings(self)->dict:
+        Settings_dict={}
+        Settings_dict["Uptime"]=self.uptime()
+
+        return Settings_dict
+
+    def uptime(self) -> str:
+        """Returns the run time of the app"""
+        return str(timedelta(seconds=math.ceil((datetime.now(timezone.utc).timestamp()-self.__init_time))))
+    def host_info(self) -> dict:
+        uname = platform.uname()
+        host= {
+            "System" : uname.system,
+            "Node Name" : uname.node,
+            "Release" : uname.release,
+            "Processor": cpuinfo.get_cpu_info()['brand_raw'],
+            "CPU Usage": str(psutil.cpu_percent())+'%',
+            "Ip-Address": socket.gethostbyname(socket.gethostname()),
+            "Mac-Address": ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+        }
+        return host
 
     def file_setup(self):
         if platform=="win32":
@@ -25,6 +49,7 @@ class Controller_unit():
             
         config=configparser.ConfigParser()
         config.read(self.path_of_bin+'config.ini')
+
         self.refresh_db()
         self.db= _Database()
         self.Tempdb = self.db.__repr__()
@@ -45,9 +70,8 @@ class Controller_unit():
     
     ## testing 
 
-    def command(self,instruction:str, devices:list=None):
+    def command(self,instruction:str, devices:list=None) ->str:
         """pass None to dev list to do all instances"""
-
         if devices == None: devices= list(self.DeviceInstances.keys())
         elif type(devices) != list:
             devices=[devices]
@@ -59,6 +83,7 @@ class Controller_unit():
         jobs=[]
         with ThreadPoolExecutor(8) as executor:
             for i in devices:
+                self.last_run_command[i]=[instruction,datetime.now(timezone.utc)]
                 task = executor.submit(i._client__dynamic_method_call,instruction)
                 jobs.append(task)
             for entry in jobs:  
@@ -79,7 +104,7 @@ def sort_device_db(data,db):
             Valid=False
             DNS_name=data[db][i]['DNS_name']
             while Valid != True:
-                print(f"The IP for {DNS_name} is invalid, \nPlease type a correct number below")
+                "The IP for {DNS_name} is invalid, \nPlease type a correct number below")
                 updated_val=input()
                 Valid=bool(int(max(re.findall(ip_regex, data[db][i]["ip"])))> 254)
                 data[db][i]["ip"]=updated_val
@@ -93,7 +118,7 @@ def sort_device_db(data,db):
             if highest_value > 254:
                 Valid=False
                 while Valid != True:
-                    print(f"The IP for {'DNS_name'} is invalid, \nPlease type a correct number below")
+                    "The IP for {'DNS_name'} is invalid, \nPlease type a correct number below")
                     updated_val=input()
                     Valid=bool(int(max(re.findall(ip_regex, data[db][i]["ip"])))> 254)
         except KeyError:pass
