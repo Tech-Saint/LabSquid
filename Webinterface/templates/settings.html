@@ -1,0 +1,58 @@
+
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    .form-group {
+      margin-bottom: 1%;
+
+    }
+    .form-control::placeholder{color:black !important;}
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+{%  if  messages %}
+{%  for  message  in  messages %} 
+<div class=" d-flex align-items-center justify-content-between alert alert-danger alert-dismissible fade show" role="alert">
+    <strong style="padding-left: 2rem;">Hold up! {{ message }}</strong> 
+    <a type="button" class="close fade show float-end btn rounded-circle " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true" >&times;</span>
+    </a>
+  </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+
+
+<form method="post" class="p-5"">
+    <span class=" d-flex align-items-center justify-content-between">
+        <h2 align="left">Settings</h2>
+    </span>
+
+  <hr>
+
+  {% for key,val in lab.settings().items() %}  
+  <div class="form-group w-25">
+    <div class=" d-flex align-items-center justify-content-between" style="width: 25rem;">
+      <label for="key">{{key.capitalize()|replace("_", " ")}}</label>
+    </div>
+    <input
+      type="val"
+      class="form-control"
+      id="val"
+      name="val"
+      placeholder="{{ val }}"
+    />
+  </div>
+ {%endfor%}
+  <button type="submit" class="btn btn-success text-dark mid" >Save</button>
+
+</form>
+
+{%endblock%}
+
