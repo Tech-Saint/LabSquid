@@ -13,7 +13,7 @@ def showdevices():
 
     return render_template('Alldevices.html' )
 
-@devices.route('/devices/<Device>',methods=('GET', 'POST'))
+@devices.route('/device/<Device>',methods=('GET', 'POST'))
 def sh_single_dev(Device):
     if request.method=="POST":
         if request.form["action"]=='DELETE':
