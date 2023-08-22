@@ -3,8 +3,9 @@
 {% block head %}
 <style>
     .form-group {
-      margin-bottom: 3%;
-
+      margin-bottom: 2rem;
+      align-items: center;
+      width: 20rem;
     }
     </style>
 {% endblock %}
@@ -26,21 +27,19 @@
 
 
 
-<form method="post" class="p-5"">
+<form method="post" class="p-5">
     <span class=" d-flex align-items-center justify-content-between">
         <h2 align="left">Add a New Device</h2>
-        <div class="form-group "style="  margin-top: auto; margin-bottom: auto;">
-          <select class="form-group btn btn-outline-warning btn-lg" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select example">
-              <option selected>Device Type</option>
-              <option value="linux">Linux</option>
-              <option value="win32">Windows</option>
-              <option value="cisco">Cisco</option>
-          </select>
-          </div>
     </span>
-
   <hr>
-
+  <div class="form-group "style="  margin-top: auto; margin-bottom: auto;">
+    <select class="form-group btn btn-secondary" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select ">
+        <option selected>Device Type</option>
+        <option value="linux">Linux</option>
+        <option value="win32">Windows</option>
+        <option value="cisco">Cisco</option>
+    </select>
+    </div>
   <div class="form-group">
     <label for="DNSname">DNS name</label>
     <input
