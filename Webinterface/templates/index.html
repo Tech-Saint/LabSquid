@@ -5,14 +5,124 @@
 {% endblock %}
 
 {% block body %}
-{% for device,instance in lab.DeviceInstances.items() %}
-{% set _ = lab.command(devices=device,instruction="ping_device")%}
+
 <div class="p-5">
-  <h1>{{device}}</h1>
-    <h3>
-        {{instance.pingable}}
-    </h3>
-  </table>
+
+
+  <div class="container-fluid d-flex row">
+
+     <div class=" d-flex align-items-center justify-content-between rounded " style=" margin-bottom: 1%; background-color: #173057!important;">
+      <h2 style="padding-left: 3%; padding: 10px; ">My Lab</h2>
+      <div class="data" style="color: #D9C580;">System Uptime:
+        <p id="uptime" style="text-align: center;"></p>
+        </div>
+    </div>
+    <!-- I know I should be requesting the time once and then update it on the client side... -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        function update(){
+            $.get("/uptime", function(data){
+                $("#uptime").html(data)
+            });
+        }
+        update()
+        var intervalId = setInterval(function() {
+            update()
+        }, 1000);
+
+    </script>
+
+    <div class=" col-md-14  col-xxl-4">
+    {% for device,instance in lab.DeviceInstances.items() %}
+  
+    <div class=" d-flex align-items-center justify-content-between rounded " style="background-color: #173057!important;">
+      <h2 style="padding-left: 3%; padding: 10px; ">{{device.capitalize()}}</h2>
+      <a class="btn btn btn-outline-warning" href="/device/{{device}}" style="margin-right: 1rem;">More Info</a>
+    </div>
+    <hr> 
+    <div class=" d-flex align-items-center justify-content-between rounded ">
+  
+        <div class="card w-100" style=" margin-bottom: 1rem;">
+          <div class="card-header display-7" >
+            Current status
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for Item,val in instance.__status__().items() %}
+            <li class="list-group-item  d-flex align-items-center justify-content-between " >
+              <h5>{{Item.capitalize()|replace("_", " ")}}</h5>
+              <h5>{{val|replace("_", " ")}}</h5>
+            </li>
+            {%endfor%}
+          </ul>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+    <div class="col-xxl-8">
+      <div class="d-flex align-items-center justify-content-between rounded w-100 " style="background-color: #173057!important;">
+        <h2 style="padding-left: 3%; padding: 10px; ">
+          Host System Info
+        </h2>
+      </div>
+      <hr>
+      {%set tempdict = lab.host_info() %}
+      {% if tempdict|length < 1 %}
+      <h3 style="padding-left: 3%; padding: 10px; ">No commands run</h3>
+      {% else %}
+      <div class="table-responsive">
+      <table class="table table-hover table-boardered">
+        
+        <tbody style="background-color: #5c5c5c;">
+          {% for key,val in tempdict.items() %}
+            <tr>
+
+                <td style="background-color: #1d1c1c;">{{key}}</td>
+
+                <td style="background-color: #1d1c1c;">{{val}}</td>
+              
+            </tr>
+          {%endfor%}
+        </tbody>
+        
+      </table>
+      
+      {%endif%}
+    </div>
+      <div class="d-flex align-items-center justify-content-between rounded w-100 " style="background-color: #173057!important;">
+        <h2 style="padding-left: 3%; padding: 10px; ">
+          Last run commands
+        </h2>
+      </div>
+      <hr>
+      {%set tempdict = lab.last_run_command%}
+      {% if tempdict|length < 1 %}
+      <h3 style="padding-left: 3%; padding: 10px; ">No commands run</h3>
+      {% else %}
+      <div class="table-responsive">
+      <table class="table table-hover table-boardered">
+        
+        <tbody style="background-color: #5c5c5c;">
+          {% for key,val in tempdict.items() %}
+            <tr>
+
+                <td style="background-color: #1d1c1c;">{{key}}</td>
+                {% for item in val%}
+                <td style="background-color: #1d1c1c;">{{item}}</td>
+                {%endfor%}
+              
+            </tr>
+          {%endfor%}
+        </tbody>
+        
+      </table>
+      
+      {%endif%}
+    </div>
+  </div>
+  </div>
+
 </div>
-{% endfor %}
+
 {% endblock %}
+
