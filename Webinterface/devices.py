@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template , request, flash
+from flask import Blueprint, render_template , request, flash, redirect, url_for
 
 import re
 from Labmanager.bin.clients import init_device_objs
+
 
 from Webinterface import session
 
@@ -16,18 +17,21 @@ def showdevices():
 @devices.route('/device/<Device>',methods=('GET', 'POST'))
 def sh_single_dev(Device):
     if request.method=="POST":
-        if request.form["action"]=='DELETE':
-            session.db.remove_device(session.DeviceInstances[Device].device)
-            session.db.load_db()
-                            
-            del session.DeviceInstances[Device]
-            return showdevices()
-        else:
-            try:
-                result=session.command(devices=Device ,instruction=request.form["action"])
-                flash(f"Success fully ran with result:{result}","success")
-            except Exception as e:
-                flash(f"Failed to run due to error: \n{e}","danger")
+        try:
+            if request.form["action"]=='DELETE':
+                session.db.remove_device(session.DeviceInstances[Device].device)
+                session.db.load_db()
+                                
+                del session.DeviceInstances[Device]
+                return showdevices()
+            else:
+                try:
+                    result=session.command(devices=Device ,instruction=request.form["action"])
+                    flash(f"Success fully ran with result:{result}","success")
+                except Exception as e:
+                    flash(f"Failed to run due to error: \n{e}","danger")
+        except:
+            pass
 
     return render_template('Device.html',device=Device)
 
@@ -77,7 +81,7 @@ def addDevice():
 
 
                 except Exception as e: 
-                    flash("IP address is invalid!")
+                    flash(f"{e}!")
 
             else: 
                 flash("IP address is invalid!")
