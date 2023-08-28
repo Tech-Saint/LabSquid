@@ -3,56 +3,192 @@
 
 {% block head %}
 <style>
-    .form-group {
-      margin-bottom: 1%;
-
-    }
-    .form-control::placeholder{color:black !important;}
-    </style>
+  .form-group {
+    padding: .5rem;
     
+  }
+  .form-control::placeholder{color:black !important;}
+  </style>
+
 {% endblock %}
 
 {% block body %}
-{% with messages = get_flashed_messages() %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
 {%  if  messages %}
-{%  for  message  in  messages %} 
-<div class=" d-flex align-items-center justify-content-between alert alert-danger alert-dismissible fade show" role="alert">
-    <strong style="padding-left: 2rem;">Hold up! {{ message }}</strong> 
-    <a type="button" class="close fade show float-end btn rounded-circle " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true" >&times;</span>
-    </a>
-  </div>
+{%  for  category,message  in  messages %}
+
+<div class=" d-flex align-items-center justify-content-between alert alert-{{category}} alert-dismissible fade show" role="alert">
+  <strong style="padding-left: 2rem;"> {{ message }}</strong> 
+  <a type="button" class="close fade show float-end btn rounded-circle " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true" >&times;</span>
+  </a>
+</div>
 {% endfor %}
 {% endif %}
 {% endwith %}
 
+<div class="p-5">
+  <div class="container-fluid ">
+
+    <div class=" d-flex align-items-center justify-content-between rounded " id="pageheader">
+     <h2 style="padding-left: 3%; padding: 10px; ">Settings</h2>
+     <div class="d-flex justify-content-end">
+       <div class="col p-2 m-2 rounded" style="background-color: #0e1d48;">
+         <div class="d-flex justify-content-end" >
+           <h4 style="padding-right: 12px;">System Uptime:</h4>
+           <h4 ID="uptime"style="S">  {{lab.uptime()}}</h4>
+         </div>
+       </div>
+     </div>
+   </div>
+
+<hr>
+<div class="container-fluid">
+  <div class="row justify-content-between ">
+    <div class="col-xl-4">
+        <div class="col p-3 m-1 rounded" style=" background-color: #173057;"">
+    
+
+        <div class=" p-3 mx-0 rounded" style=" background-color: #21498f;"">
+         <div class="d-flex align-items-center justify-content-between" >
+          <h3>App Settings</h3>
 
 
+            </div>
+          </div>
+        <hr>
+        <form method="post">
+          {% for key,val in lab.settings().items() %}  
+          <div class="form-group  rounded" style="background-color: #0e1d48;">
+            <h4 class="p-1 rounded" style="background-color: #548dbf;"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
+              <div class="d-flex align-items-center justify-content-between">
+                {% if "Logging level" in key.capitalize()|replace("_", " ")%}
+                <label>Current Value: {{val}}</label>
+                <select class="form-group btn btn-secondary" for="Logging" name="Logging" aria-label="Default select ">
+                  <option value="{{val}}" selected disabled hidden>{{val}}</option>
+                    <option value="DEBUG">DEBUG</option>
+                    <option value="WARNING">WARNING</option>
+                    <option value="CRITICAL">CRITICAL</option>
+                </select>
+              </div>
 
-<form method="post" class="p-5"">
-    <span class=" d-flex align-items-center justify-content-between">
-        <h2 align="left">Settings</h2>
-    </span>
+            {% elif "Notify tags" in key.capitalize()|replace("_", " ")%}
+            
+              <label>Current Value: {{val}}</label>
+              <select class="form-group btn btn-secondary" for="Notify" name="Notify" aria-label="Default select ">
+                <option value="{{val}}" selected disabled hidden>{{val}}</option>
+                  <option value="Record">Record</option>
+                  <option value="Notify">Notify</option>
+              </select>
+          </div>
 
-  <hr>
+            {% elif "Use regexes to find tags" in key.capitalize()|replace("_", " ")%}
+            
+                <label>Current Value: {{val}}</label>
+                <select class="form-group btn btn-secondary" for="regexes" name="regexes" aria-label="Default select ">
+                  <option value="{{val}}" selected disabled hidden>{{val}}</option>
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                </select>
+                
+            </div>
 
-  {% for key,val in lab.settings().items() %}  
-  <div class="form-group w-25">
-    <div class=" d-flex align-items-center justify-content-between" style="width: 25rem;">
-      <label for="key">{{key.capitalize()|replace("_", " ")}}</label>
-    </div>
-    <input
-      type="val"
-      class="form-control"
-      id="val"
-      name="val"
-      placeholder="{{ val }}"
-    />
+            {% else %}
+              <input
+                type="{{key}}"
+                class="form-control"
+                id="{{key}}"
+                name="{{key}}"
+                placeholder="{{ val }}"
+              />
+            </div>
+
+
+            {% endif %}
+          </div>
+        {%endfor%}
+          <button type="submit" class="btn btn-success text-dark mid" style="margin-top: 1rem;">Save</button>
+
+        </form>
+      </div>
   </div>
- {%endfor%}
-  <button type="submit" class="btn btn-success text-dark mid" >Save</button>
+  <div class="col" >
+    <div class="col p-3 m-1 rounded" style=" background-color: #173057;"">
 
-</form>
+       <div class=" p-3 mx-0 rounded" style=" background-color: #21498f;"">
+        <div class="d-flex align-items-center justify-content-between" >
+          <h3>App Info</h3>
+            <div class="d-flex justify-content-end" >
+              <a class="btn btn btn-outline-warning " href="/api/logs_txt" >Download Logs</a>
+            </div>
+        </div>  
+      </div>
+
+
+        <hr>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-status-tab" data-bs-toggle="tab" data-bs-target="#nav-status" type="button" role="tab" aria-controls="nav-status" aria-selected="true">status</button>
+            <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="false">info</button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-status" role="tabpanel" aria-labelledby="nav-status-tab">
+            <table class="table table-hover table-boardered border border-primary rounded ">
+              <tr>
+                {%set tempdict = lab.settings() %}
+                {% for key,val in tempdict.items() %}
+                  <td class="display-9">{{ key.capitalize() }}</td>
+                      {% if val is mapping %}
+                      {% set temp = [] %}
+                        {% for Key in val %}
+                        {% set _ = temp.append(Key) %}
+                      {% endfor %}
+                      <td class="display-9">{{temp| join(', ')}}</td>
+                      {% else %}
+                  <td class="display-9">{{ val }}</td>
+                  {% endif %}
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab"><table class="table table-hover table-boardered border border-primary rounded ">
+            <tr>
+              {%set tempdict = lab.__info__() %}
+              {% for key,val in tempdict.items() %}
+                <td class="display-9">{{ key.capitalize() }}</td>
+                  {% if val is mapping %}
+                    {% set temp = [] %}
+                      {% for Key in val %}
+                      {% set _ = temp.append(Key) %}
+                    {% endfor %}
+                    <td class="display-9  ">{{temp| join(', ')}}</td>
+                    {% else %}
+                <td class="display-9  ">{{ val }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+          </table>
+        </div>              
+          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><table class="table table-hover table-boardered border border-primary rounded ">
+            <tr>
+                <td class="display-9">Creator: Thomas Linkey</td>
+                <td class="display-9"><a href="mailto:tomlewho@gmail.com">Email</a></td> 
+                <td class="display-9"><a href="#">Discord</a></td>
+            </tr>
+          </table>
+        </div>
+        </div>
+      </div>
+  </div>
+</div>
+  
+  
+</div>
+</div>
 
 {%endblock%}
+
 
