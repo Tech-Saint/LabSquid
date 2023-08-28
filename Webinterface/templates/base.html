@@ -31,6 +31,11 @@
 #devicename{
   background-color: #173057;
 }
+#pageheader{
+  background-color: #548dbf;
+  margin-bottom: 1%;
+}
+
         </style>
       
 </head>
@@ -75,6 +80,25 @@
   <a href="https://github.com/Tech-Saint/LabSquid">Github</a>
 </div>
 
-    <!-- Bootstrap Javascripts -->  
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+          function update() {
+        const uptimeText = $("#uptime").text();
+        const [hour, minute, second] = uptimeText.split(':').map(Number);
+        let timeInSeconds = hour * 3600 + minute * 60 + second + 1;
+        const newHour = Math.floor(timeInSeconds / 3600);
+        timeInSeconds -= newHour * 3600;
+        const newMinute = Math.floor(timeInSeconds / 60);
+        const newSecond = timeInSeconds - newMinute * 60;
+        const formatSecond = newSecond.toString().padStart(2, '0');
+        const newUptimeText = `  ${newHour}:${newMinute}:${formatSecond}`;
+        $("#uptime").text(newUptimeText);
+      }
+    
+      update();
+    
+      var intervalId = setInterval(function () {
+        update();
+      }, 1000);
+    </script>
 </html>

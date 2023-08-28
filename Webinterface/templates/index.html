@@ -9,37 +9,34 @@
 <div class="p-5">
 
 
-  <div class="container-fluid d-flex row">
+  <div class="container-fluid">
 
-     <div class=" d-flex align-items-center justify-content-between rounded " style=" margin-bottom: 1%; background-color: #173057!important;">
+     <div class=" d-flex align-items-center justify-content-between rounded " id="pageheader">
       <h2 style="padding-left: 3%; padding: 10px; ">My Lab</h2>
-      <div class="data" style="color: #D9C580;">System Uptime:
-        <p id="uptime" style="text-align: center;"></p>
+      <div class="d-flex justify-content-end">
+        <div class="col p-2 m-2 rounded" style="background-color: #0e1d48;">
+          <div class="d-flex justify-content-end" >
+            <h4 style="padding-right: 12px;">System Uptime:</h4>
+            <h4 ID="uptime"style="S">  {{lab.uptime()}}</h4>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- I know I should be requesting the time once and then update it on the client side... -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script>
-        function update(){
-            $.get("/uptime", function(data){
-                $("#uptime").html(data)
-            });
-        }
-        update()
-        var intervalId = setInterval(function() {
-            update()
-        }, 1000);
-
-    </script>
-
+    <hr>
     <div class=" col-md-14  col-xxl-4">
     {% for device,instance in lab.DeviceInstances.items() %}
+    <div style="background-color: #173057;" class=" p-2 rounded m-1">
+      <div class=" d-flex align-items-center justify-content-between rounded mx-0" id="pageheader">
+        <h2 style="margin-left: 1rem; margin: auto;">{{device.capitalize()}}</h2>
   
-    <div class=" d-flex align-items-center justify-content-between rounded " style="background-color: #173057!important;">
-      <h2 style="padding-left: 3%; padding: 10px; ">{{device.capitalize()}}</h2>
-      <a class="btn btn btn-outline-warning" href="/device/{{device}}" style="margin-right: 1rem;">More Info</a>
-    </div>
-    <hr> 
+           <div class="d-flex justify-content-end align-items-center">           
+            <a class="btn btn btn-outline-warning text-dark" href="/device/{{device}}" style="margin-right: 1rem;">More Info</a>
+  
+          </div>
+        </div>
+        
+  
+  
     <div class=" d-flex align-items-center justify-content-between rounded ">
   
         <div class="card w-100" style=" margin-bottom: 1rem;">
@@ -55,12 +52,13 @@
             {%endfor%}
           </ul>
         </div>
+      </div>
     </div>
     {% endfor %}
   </div>
   
     <div class="col-xxl-8">
-      <div class="d-flex align-items-center justify-content-between rounded w-100 " style="background-color: #173057!important;">
+      <div class="d-flex align-items-center justify-content-between rounded w-100 m-1" style="background-color: #173057!important;">
         <h2 style="padding-left: 3%; padding: 10px; ">
           Host System Info
         </h2>
@@ -89,7 +87,7 @@
       
       {%endif%}
     </div>
-      <div class="d-flex align-items-center justify-content-between rounded w-100 " style="background-color: #173057!important;">
+      <div class="d-flex align-items-center justify-content-between rounded w-100 m-1 " style="background-color: #173057!important;">
         <h2 style="padding-left: 3%; padding: 10px; ">
           Last run commands
         </h2>
