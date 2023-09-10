@@ -24,7 +24,7 @@
   <hr>
   <div class="d-flex row align-items-center">
 {% for device,instance in lab.DeviceInstances.items() %}
-  <div class="col-xxl-4 ">
+  <div class="col-xxl-4 col-lg-6">
   <div style="background-color: #173057;" class=" p-2 rounded m-1">
     <div class=" d-flex align-items-center justify-content-between rounded mx-0" id="pageheader">
       <h2 style="margin-left: 1rem; margin: auto;">{{device.capitalize()}}</h2>
@@ -36,34 +36,35 @@
       </div>
 
       <div class="row d-flex justify-content-between" style="margin-bottom: 1rem;">
-        <div class="col">
+        <div class="col p-4">
+          <div class="rounded p-2" style="background-color: #21498F">
           <nav class="round">
             <div class="nav nav-tabs" id="nav-tab" role="tablist" >
               <button class="nav-link active" id="nav-status-tab" data-bs-toggle="tab" data-bs-target="#nav-status" type="button" role="tab" aria-controls="nav-status" aria-selected="true">status</button>
             </div>
           </nav>
-
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-status" role="tabpanel" aria-labelledby="nav-status-tab">
               <table class="table table-hover table-boardered border border-primary rounded " style="padding-bottom: 1rem;">
                 <tr>
                 {%set tempdict = instance.__info__()%}
                 {% for key,val in tempdict.items() %}
-                        <td class="  ">{{ key|replace("_", " ") }}</td>
-                            {% if val is mapping %}
-                            {% set temp = [] %}
-                              {% for Key in val %}
-                              {% set _ = temp.append(Key) %}
-                            {% endfor %}
-                            <td class="  ">{{temp| join(', ')|replace("_", " ")}}</td>
-                            {% else %}
-                        <td class="  ">{{ val|replace("_", " ")|replace("_", " ") }}</td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-                  </table>
+                  <td class="  ">{{ key|replace("_", " ") }}</td>
+                      {% if val is mapping %}
+                      {% set temp = [] %}
+                        {% for Key in val %}
+                        {% set _ = temp.append(Key) %}
+                      {% endfor %}
+                      <td class="  ">{{temp| join(', ')|replace("_", " ")}}</td>
+                      {% else %}
+                  <td class="  ">{{ val|replace("_", " ")|replace("_", " ") }}</td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+                </table>
                 </div>
               </div>
+            </div>
             </div>
             <div class="col-lg-4 col-md-15 col-sm-13 ">
               <div class="card" >

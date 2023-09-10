@@ -7,7 +7,7 @@
     padding: .5rem;
     
   }
-  .form-control::placeholder{color:black !important;}
+  .form-control::placeholder{color:#fff !important;}
   </style>
 
 {% endblock %}
@@ -61,11 +61,11 @@
         <form method="post">
           {% for key,val in lab.settings().items() %}  
           <div class="form-group  rounded" style="background-color: #0e1d48;">
-            <h4 class="p-1 rounded" style="background-color: #548dbf;"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
+            <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
               <div class="d-flex align-items-center justify-content-between">
                 {% if "Logging level" in key.capitalize()|replace("_", " ")%}
                 <label>Current Value: {{val}}</label>
-                <select class="form-group btn btn-secondary" for="Logging" name="Logging" aria-label="Default select ">
+                <select class="form-group btn btn-primary" for="Logging" name="Logging" aria-label="Default select ">
                   <option value="{{val}}" selected disabled hidden>{{val}}</option>
                     <option value="DEBUG">DEBUG</option>
                     <option value="WARNING">WARNING</option>
@@ -73,34 +73,15 @@
                 </select>
               </div>
 
-            {% elif "Notify tags" in key.capitalize()|replace("_", " ")%}
-            
-              <label>Current Value: {{val}}</label>
-              <select class="form-group btn btn-secondary" for="Notify" name="Notify" aria-label="Default select ">
-                <option value="{{val}}" selected disabled hidden>{{val}}</option>
-                  <option value="Record">Record</option>
-                  <option value="Notify">Notify</option>
-              </select>
-          </div>
-
-            {% elif "Use regexes to find tags" in key.capitalize()|replace("_", " ")%}
-            
-                <label>Current Value: {{val}}</label>
-                <select class="form-group btn btn-secondary" for="regexes" name="regexes" aria-label="Default select ">
-                  <option value="{{val}}" selected disabled hidden>{{val}}</option>
-                    <option value="True">True</option>
-                    <option value="False">False</option>
-                </select>
-                
-            </div>
 
             {% else %}
               <input
                 type="{{key}}"
-                class="form-control"
+                class="form-control "
                 id="{{key}}"
                 name="{{key}}"
                 placeholder="{{ val }}"
+                style="background-color: #0e1d48;"
               />
             </div>
 
@@ -124,9 +105,8 @@
             </div>
         </div>  
       </div>
-
-
-        <hr>
+      <hr>
+      <div class="rounded p-2" style="background-color: #0e1d48;">
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <button class="nav-link active" id="nav-status-tab" data-bs-toggle="tab" data-bs-target="#nav-status" type="button" role="tab" aria-controls="nav-status" aria-selected="true">status</button>
@@ -134,7 +114,7 @@
             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
           </div>
         </nav>
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content" id="nav-tabContent" style="overflow: hidden; overflow-x: scroll;"">
           <div class="tab-pane fade show active" id="nav-status" role="tabpanel" aria-labelledby="nav-status-tab">
             <table class="table table-hover table-boardered border border-primary rounded ">
               <tr>
@@ -182,6 +162,7 @@
         </div>
         </div>
       </div>
+    </div>
   </div>
 </div>
   
