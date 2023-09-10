@@ -2,9 +2,11 @@
 from json import dumps as jsonstring
 
 
-from flask import Flask,render_template,request,Blueprint,flash
+from flask import Flask,render_template,request,Blueprint,flash,redirect,session
 
-from Webinterface import session
+
+
+from Webinterface import lab
 
 views = Blueprint('views', __name__)
 
@@ -14,9 +16,12 @@ def home():
 
 @views.route('Settings',methods=['GET', 'POST'])
 def settings():
+    if 'logged_in' not in session:
+        return redirect("/login")
+
     if request.method=="POST":
         try:
-            output=session.UpdateSettings(request.form)
+            output=lab.UpdateSettings(request.form)
             if type(output)==str:
                 flash(output,"success")
             else:
@@ -27,7 +32,3 @@ def settings():
 
     return render_template('settings.html')
 
-
-@views.get("/uptime")
-def return_uptime():
-    return session.uptime()

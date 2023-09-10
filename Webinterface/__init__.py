@@ -1,19 +1,19 @@
 from flask import Flask
 from Labmanager.labmanager import init_backend
 
-session=""
+lab=""
 
 def Main_app():
     app = Flask(__name__)
 
 
     with app.app_context():
-        global session
-        session = init_backend()
+        global lab
+        lab = init_backend()
     @app.context_processor
     def inject_global_vars():
 
-        return {'lab': session}  # Return the session object as a dictionary
+        return {'lab': lab}  # Return the session object as a dictionary
         
     from .views import views
     from .devices import devices

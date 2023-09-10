@@ -1,32 +1,36 @@
-from flask import Blueprint, render_template , request, flash, redirect, url_for
+from flask import Blueprint, render_template , request, flash, redirect, url_for, session
 
 import re
 from Labmanager.bin.clients import init_device_objs
 
 
-from Webinterface import session
+from Webinterface import lab
 
 
 devices = Blueprint('devices', __name__)
 
 @devices.route('/devices')
 def showdevices():
-
+    if 'logged_in' not in session:
+        return redirect("/login")
     return render_template('Alldevices.html' )
 
 @devices.route('/device/<Device>',methods=('GET', 'POST'))
 def sh_single_dev(Device):
+    if 'logged_in' not in session:
+        return redirect("/login")
+
     if request.method=="POST":
         try:
             if request.form["action"]=='DELETE':
-                session.db.remove_device(session.DeviceInstances[Device].device)
-                session.db.load_db()
+                lab.db.remove_device(lab.DeviceInstances[Device].device)
+                lab.db.load_db()
                                 
-                del session.DeviceInstances[Device]
+                del lab.DeviceInstances[Device]
                 return showdevices()
             else:
                 try:
-                    result=session.command(devices=Device ,instruction=request.form["action"])
+                    result=lab.command(devices=Device ,instruction=request.form["action"])
                     flash(f"Success fully ran with result:{result}","success")
                 except Exception as e:
                     flash(f"Failed to run due to error: \n{e}","danger")
@@ -37,6 +41,8 @@ def sh_single_dev(Device):
 
 @devices.route('/add/device',methods=('GET', 'POST'))
 def addDevice():
+    if 'logged_in' not in session:
+        return redirect("/login")
     try:
         if request.method == "POST":
             formInvalid=False
@@ -64,7 +70,7 @@ def addDevice():
                     
                     else:
                         try: 
-                            session.DeviceInstances[request.form["DNS_name"]]
+                            lab.DeviceInstances[request.form["DNS_name"]]
                             flash(f"The DNS name: '{request.form['DNS_name']}' already exists!")
                             return render_template('Adddevice.html')
 
@@ -73,12 +79,11 @@ def addDevice():
                         new_device["password"]=new_device["password1"]
                         del new_device["password2"]
                         del new_device["password1"]
-                        session.db.add_device(new_device)
-                        session.db.load_db()
+                        lab.db.add_device(new_device)
+                        lab.db.load_db()
                         
-                        session.DeviceInstances[new_device["DNS_name"]]=init_device_objs(new_device)
-                        return sh_single_dev(new_device["DNS_name"])
-
+                        lab.DeviceInstances[new_device["DNS_name"]]=init_device_objs(new_device)
+                        return redirect(f"/device/{new_device['DNS_name']}")
 
                 except Exception as e: 
                     flash(f"{e}!")
