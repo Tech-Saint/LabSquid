@@ -10,17 +10,25 @@
 
 </head>
 {% block styles %}
-  <link rel="stylesheet" 
-  href="{{url_for('static', filename='bootstrap.css') }}">
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #173057!important;">
-    <div class="container-fluid">
-      <a class="navbar-brand" >Labsquid</a>
-      </div>
-    </div>
-  </nav>
+<link rel="stylesheet" href="{{url_for('static', filename='bootstrap.css') }}">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #548DBF!important;">
+  <div class="container-fluid">
+    <a class="navbar-brand" >Labsquid</a>
+  </div>
+</nav>
 {% endblock %}
   <body>
+    <div class="container-fluid p-5" >
+      <div class="rounded p-1" style="background-color: #D9C580 ;">
+        <div class="rounded p-2" style="background-color: #173057 ;">
+          <form method="POST">
+            <div class="rounded bg-primary align-items-center p-1 ">
     {% block body %}{% endblock %}
+            </form>
+  </div>
+</div>
+</div>
+
 
     <!-- Bootstrap Javascripts -->  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

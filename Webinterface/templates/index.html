@@ -23,22 +23,20 @@
       </div>
     </div>
     <hr>
-    <div class=" col-md-14  col-xxl-4">
-    {% for device,instance in lab.DeviceInstances.items() %}
-    <div style="background-color: #173057;" class=" p-2 rounded m-1">
-      <div class=" d-flex align-items-center justify-content-between rounded mx-0" id="pageheader">
-        <h2 style="margin-left: 1rem; margin: auto;">{{device.capitalize()}}</h2>
-  
-           <div class="d-flex justify-content-end align-items-center">           
-            <a class="btn btn btn-outline-warning text-dark" href="/device/{{device}}" style="margin-right: 1rem;">More Info</a>
-  
+    <div class="row">
+      <div class=" col-lg-6 col-xxl-4">
+      {% for device,instance in lab.DeviceInstances.items() %}
+        <div style="background-color: #173057;" class=" p-2 rounded m-1">
+          <div class=" d-flex align-items-center justify-content-between rounded mx-0" id="pageheader">
+            <h2 style="margin-left: 1rem; margin: auto;">{{device.capitalize()}}</h2>
+            <div class="d-flex justify-content-end align-items-center">           
+              <a class="btn btn btn-outline-warning text-dark" href="/device/{{device}}" style="margin-right: 1rem;">More Info</a>
+            </div>
           </div>
-        </div>
         
   
   
     <div class=" d-flex align-items-center justify-content-between rounded ">
-  
         <div class="card w-100" style=" margin-bottom: 1rem;">
           <div class="card-header display-7" >
             Current status
@@ -57,7 +55,7 @@
     {% endfor %}
   </div>
   
-    <div class="col-xxl-8">
+    <div class="col-xxl-8 col-lg-6">
       <div class="d-flex align-items-center justify-content-between rounded w-100 m-1" style="background-color: #173057!important;">
         <h2 style="padding-left: 3%; padding: 10px; ">
           Host System Info
@@ -119,7 +117,7 @@
     </div>
   </div>
   </div>
-
+</div>
 </div>
 
 {% endblock %}
