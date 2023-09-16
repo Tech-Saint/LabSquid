@@ -4,7 +4,7 @@ from .db.database_interface import  _Database
 from .clients import *
 from datetime import datetime,timezone,timedelta
 
-import math, cpuinfo, socket, uuid, platform,psutil
+import math, cpuinfo, socket, uuid, platform,psutil,time
 
 output_list=[]
 
@@ -143,6 +143,14 @@ class Controller_unit():
             return "Updated settings"
         return result
     
+    def Action_thread(self):
+        while True==True:
+            _thread=ThreadPoolExecutor()
+            _thread.submit(self.command('ping'))
+            _thread.submit(self.command('dns_query'))
+            _thread.shutdown(False)
+            time.sleep(int(self.Ping_Cooldown)*60)
+
     ## testing 
 
     def command(self,instruction:str, devices:list=None) ->str:
