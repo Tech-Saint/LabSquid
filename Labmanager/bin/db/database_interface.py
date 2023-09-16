@@ -1,5 +1,6 @@
 import json, cryptography, os,re
 from sys import platform,path 
+from copy import deepcopy
 
 from Labmanager.bin.Localutils import log_event
 
@@ -8,62 +9,85 @@ from Labmanager.bin.Localutils import log_event
 class _Database():
     """Creates and loads a DB object to change and update."""
     def __init__(self):
+        self.dir_path = os.path.join(os.path.dirname(__file__))
+        self.Refresh_image_list()
         self.load_db()
-        log_event("LoadedDB")
+        self.temp_data = deepcopy(self.data) # unlinks the dict.
+        self.unsaved_changes = False
+        log_event("Initalized DB Object")
+    
     def __repr__(self):
         return self.data
 
-    def prep_db(self):
-        ip_octet_regex=r"(?:[\d]{1,3})"
-        ip_len_regex=r"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"
-        for i in range(len(self.data["devices"])):
-            self.data["devices"][i]["id"]=i
-            valid = 0
-            # Check ip
-            highest_value=257
-            while valid != 2:
-                valid = 0
-                if re.match(ip_len_regex, self.data["devices"][i]["ip"]) != None: valid+=1 
-                else: self.fix_entry("ip",i)
+    def Refresh_image_list(self):
+        """Refreshes the image list."""
+        return
+        image_list = os.listdir(os.path.join(os.path.dirname(self.dir_path), "Images"))
+        for _ in range(len(image_list)):
+            image_list[_] = image_list[_][:-4] #strips the File ext.
+        self.image_list = image_list
 
-                try:
-                    highest_value=max([int(i) for i in re.findall(ip_octet_regex, self.data["devices"][i]["ip"])])
-                    if highest_value > 254:
-                        self.fix_entry("ip",i)
-                    else:valid+=1
+    def Verify_data(self, temp_data:dict = None,) ->( list ) :
+        """Confirms a device dict is valid."""
+        #TODO convert to pandas table. 
+        result_list=[]
 
-                except ValueError: self.fix_entry("ip",i)
-        log_event("DB was successfully checked")
-        # self.data["devices"] = sorted(self.data["devices"], key=lambda d: d['ip'])
-        # Commented out as the device sort may cause issues later when db has not been passed to each thread. 
-        # Fast enough for now. Uses Timsort to sort thr DB.
-        # I'd like to open this up to have less loops...
-             
-    def fix_entry(self,loc:str,i:int):
-        """
-        Wrap this in a while not equal to the correct value loop. 
-        """
-        data=self.data["devices"][i]
+ 
+            # Check ip       
+        if re.match(r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", temp_data["ip"]) == False:
+            result_list.append(f"Please enter a valid IP.\n")
+
+        return result_list
+
+    def Verify_all_data(self,database=None) -> ( list ):
+        """Verfies All of the database entries"""
         
-        print(f"Invalid {loc} of {data[loc]}\nOther entries in the db:\n{data}")
-        data[loc]=input(f"Please type the updated value for {loc}.\n")
-        
+        if database == None:
+            database = self.temp_data
+            using_database = True
 
+        for i in list(database.keys()):
+
+            if i == "Templates":
+                continue
+           
+            for index,key in enumerate(database[i]):
+                ok=False
+                result = self.Verify_data(temp_data = key)
+                if len(result) != 0:
+                    return result # returns the error statement.
+            
+            if i == "devices":
+                database[i] = sorted(database[i], key=lambda d: d['ip'])
+            else:
+                return (f"Error: {i} is not a valid database.")
+
+            for index,key in enumerate(database[i]):
+                database[i][index]["id"] = index
+
+        try: 
+            using_database
+            self.temp_data=database
+            return ["All data was verified successfully."]
+        except:pass
+        return ["All data was verified successfully."]
+    
     def save_db(self):
-        self.prep_db()
-        path, filename = os.path.split(os.path.realpath(__file__))      
-
-        with open(os.path.join(path,"device_db.json"), 'w', encoding='utf-8') as f:
-            json.dump(self.data, f, ensure_ascii=False, indent=3)
-        return log_event("Saved DB")
+        result_list=self.Verify_all_data()
+        if result_list != ["All data was verified successfully."]:
+            return result_list
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'w', encoding = 'utf-8') as f:
+            json.dump(self.temp_data, f, indent = 4)
+        result_list.append("Saved Database")
+        self.load_db()
+        self.unsaved_changes = False
+        log_event("saved db")
+        return result_list
         
 
     def load_db(self):
-        try:
-            with open(os.path.join(os.getcwd(),"bin","db","device_db.json"), 'r', encoding='utf-8') as f:
-                self.data = json.load(f)
-        except FileNotFoundError:
-            with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'r', encoding='utf-8') as f:
+        
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'r', encoding='utf-8') as f:
                 self.data = json.load(f)
 
     def update_db(self,entry:dict):
@@ -184,3 +208,55 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
             exit()
+
+
+
+
+    
+    
+    def del_entries(self,selected:list, dictkey) -> str:
+        """
+        This function will delete the selected entries from the database.
+        selected is a list of IDs to remove. 
+        Returns a result string. 
+        """
+        
+        list_of_IDs = []
+        for i in selected:
+            list_of_IDs.append(int(i[-1])) # this should always be the ID. Makes sure that the list of indexes are interpreted as an int.
+        
+        Local_temp = self.temp_data[dictkey].deepcopy()
+        for index,i in reversed(list(enumerate(self.temp_data[dictkey]))):
+            try:
+                if i["id"] in list_of_IDs:
+                    Local_temp.remove(i)
+
+            except KeyError:
+                return("There was an error deleting entries. Aborted database changes.")
+            
+        self.temp_data[dictkey] = Local_temp
+        self.unsaved_changes = True
+
+        return ("Successfully deleted entries.")
+    
+    def Update_db_entry(self,entry:dict, dictkey) -> str:
+        """
+        Give this a single database entry.
+        The database entry will require the 
+        """
+        
+        try:
+            index=entry["id"]
+
+            Local_temp = self.temp_data[dictkey].deepcopy()
+
+            Local_temp[index]=entry
+
+        except Exception as e:
+
+            return (f"failed to update entry. Error:\n{e} \nAborted database changes.")
+        
+        self.temp_data[dictkey] = Local_temp
+
+        self.unsaved_changes = True
+        return ("Successfully updated entry.")
