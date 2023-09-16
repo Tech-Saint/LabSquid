@@ -69,6 +69,7 @@ class __client:
     def __status__(self) -> dict:
         status_dict={}
         status_dict["ip"]=self.device["ip"]
+        status_dict["id"]=self.device["id"]
         status_dict["Os_type"]=self.os_type
         status_dict["pingable"]=self.pingable
         status_dict["Roles"]="Not implemented"
@@ -163,6 +164,7 @@ class __client:
         self.DNS_exist=False
         try:
             ip=gethostbyname(self.DNS_name)
+            
             if ip!=self.device ['ip'] and ip != "":
                 self.device['ip']=ip
             self.DNS_exist=bool(ip)
