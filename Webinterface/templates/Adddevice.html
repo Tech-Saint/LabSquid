@@ -1,13 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<style>
-    .form-group {
-      margin-bottom: 2rem;
-      align-items: center;
-      width: 20rem;
-    }
-    </style>
+
 {% endblock %}
 
 {% block body %}
@@ -24,74 +18,99 @@
 {% endif %}
 {% endwith %}
 
+    <!-- Modal -->
+    <div class="modal fade" id="running" tabindex="-1" role="dialog" aria-labelledby="running" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <strong>Attempting to add device...</strong>
+              <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="container-fluid p-5">
+  <div class="row justify-content-between ">
+    <div class="rounded p-1" style="background-color: #D9C580 ;">
+        <div class="col p-2 rounded" style=" background-color: #173057;"">
+    
+
+        <div class=" p-3 mx-0 rounded " id="pageheader" >
+         <div class="d-flex justify-content-between" >
+          <h3 style="margin-bottom: 0px;">Add New Device</h3>
+
+            </div>
+          </div>
+        <hr>
+        <form method="post">
+          {% for key in lab.db.data["Templates"]['devices'] %}  
+          
+            
+          {% if "Device type" in key.capitalize()|replace("_", " ") %}
+          <div class="form-group m-2 p-2 rounded" style="background-color: #0e1d48;">
+            <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
+              <div class="d-flex">
+                  <select class="form-group btn btn-info mx-auto w-100 h-100" style="background-color: #21498f;" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select ">
+                      <option selected>Select</option>
+                      <option value="linux">Linux</option>
+                      <option value="win32">Windows</option>
+                      <option value="cisco">Cisco</option>
+                  </select>
+                
+
+                {% elif "Netmiko type" in key.capitalize()|replace("_", " ") %}
+
+                {% elif "Password" in key.capitalize()|replace("_", " ") %}
+                <div class="form-group m-2 p-2  rounded" style="background-color: #0e1d48;">
+                  <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
+                <div class="form-groupp">
+                  <input
+                    type="password1"
+                    class="form-control"
+                    id="password1"
+                    name="password1"
+                    placeholder="Enter Password"
+                    style="background-color: #21498f; color: #fff""
+                  />
+
+                  <input
+                    type="password2"
+                    class="form-control"
+                    id="password2"
+                    name="password2"
+                    placeholder="Confirm"
+                    style="background-color: #21498f;  color: #fff""
+                  />
+                </div>
+              
+
+            {% else %}
+            <div class="form-group m-2 p-2 rounded" style="background-color: #0e1d48;">
+              <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222" for="key">{{key.capitalize()|replace("_", " ")}}</h4>
+              <div class="d-flex align-items-center justify-content-between">
+              <input
+                type="{{key}}"
+                class="form-control"
+                id="{{key}}"
+                name="{{key}}"
+                placeholder=""
+                style="background-color: #21498f; color: #fff"
+              />
+            </div>
 
 
+            {% endif %}
+            
+          </div>
+        {%endfor%}
+        <hr>
+          <button type="submit" class="btn btn-success text-dark mid" data-toggle="modal" data-target="#running" style="margin-top: 1rem;">Save</button>
 
-<form method="post" class="p-5">
-    <span class=" d-flex align-items-center justify-content-between">
-        <h2 align="left">Add a New Device</h2>
-    </span>
-  <hr>
-  <div class="form-group "style="  margin-top: auto; margin-bottom: auto;">
-    <select class="form-group btn btn-secondary" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select ">
-        <option selected>Device Type</option>
-        <option value="linux">Linux</option>
-        <option value="win32">Windows</option>
-        <option value="cisco">Cisco</option>
-    </select>
-    </div>
-  <div class="form-group">
-    <label for="DNSname">DNS name</label>
-    <input
-      type="DNS_name"
-      class="form-control"
-      id="DNS_name"
-      name="DNS_name"
-      placeholder="DNS name"
-    />
+        </form>
+      </div>
   </div>
-  <div class="form-group">
-    <label for="IPaddress">IP address</label>
-    <input
-      type="IPaddress"
-      class="form-control"
-      id="IPaddress"
-      name="ip"
-      placeholder="IP address"
-    />
-  </div>
-  <div class="form-group">
-    <label for="Username">User Name</label>
-    <input
-      type="Username"
-      class="form-control"
-      id="Username"
-      name="username"
-      placeholder="Username"
-    />
-  </div>
-  <div class="form-group">
-    <label for="password1">Password</label>
-    <input
-      type="password1"
-      class="form-control"
-      id="password1"
-      name="password1"
-      placeholder="Enter Password"
-    />
-  </div>
-  <div class="form-group">
-    <label for="password2">Confirm Password</label>
-    <input
-      type="password2"
-      class="form-control"
-      id="password2"
-      name="password2"
-      placeholder="Confirm Password"
-    />
-  </div>  
-  <button type="submit" class="btn btn-success text-dark mid" >Add</button>
 
-</form>
+
 
 {%endblock%}
