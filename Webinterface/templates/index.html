@@ -25,8 +25,21 @@
     <hr>
     <div class="row">
       <div class=" col-lg-6 col-xxl-4">
-      {% for device,instance in lab.DeviceInstances.items() %}
+      {% if lab.DeviceInstances.items()|length < 1 %}
+      <div class="rounded p-1" style="background-color: #D9C580 ; margin-bottom: 1rem;">
         <div style="background-color: #173057;" class=" p-2 rounded m-1">
+          <div class=" d-flex align-items-center justify-content-between rounded mx-0" id="pageheader">
+            <h2 style="margin-left: 1rem; margin: auto;">No Devices</h2>
+            <div class="d-flex justify-content-end align-items-center">           
+              <a class="btn btn-primary m-1" href="/add/device" style="margin-right: 1rem;">Click to ADD Devices</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      {% for device,instance in lab.DeviceInstances.items() %}
+      <div class="rounded p-1" style="background-color: #D9C580 ; margin-bottom: 1rem;">
+        <div style="background-color: #173057;" class=" p-2 rounded ">
           <div class=" d-flex align-items-center justify-content-between rounded mx-0" id="pageheader">
             <h2 style="margin-left: 1rem; margin: auto;">{{device.capitalize()}}</h2>
             <div class="d-flex justify-content-end align-items-center">           
@@ -37,7 +50,7 @@
   
   
     <div class=" d-flex align-items-center justify-content-between rounded ">
-        <div class="card w-100" style=" margin-bottom: 1rem;">
+        <div class="card w-100">
           <div class="card-header display-7" >
             Current status
           </div>
@@ -52,13 +65,19 @@
         </div>
       </div>
     </div>
-    {% endfor %}
   </div>
+    {% endfor %}
+ 
+    {%endif%}
+  </div>
+
+
+  
   
     <div class="col-xxl-8 col-lg-6">
       <div class="rounded p-1" style="background-color: #D9C580 ;">
         <div class="rounded p-2" style="background-color: #173057 ;">
-          <div class="d-flex align-items-center justify-content-between rounded w-100 m-1" style="background-color: #548DBF!important;">
+          <div class="d-flex align-items-center justify-content-between rounded m-1" style="background-color: #548DBF!important;">
             <h2 style="padding-left: 3%; padding: 10px; ">
               Host System Info
             </h2>
@@ -87,7 +106,7 @@
           
           {%endif%}
         </div>
-          <div class="d-flex align-items-center justify-content-between rounded w-100 m-1 " style="background-color: #548DBF!important;">
+          <div class="d-flex align-items-center justify-content-between rounded  m-1 " style="background-color: #548DBF!important;">
             <h2 style="padding-left: 3%; padding: 10px; ">
               Last run commands
             </h2>
