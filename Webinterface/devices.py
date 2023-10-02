@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template , request, flash, redirect, url_for, session
 from concurrent.futures import as_completed,ThreadPoolExecutor
 import re, copy
-from Labmanager.bin.clients import init_device_objs
+from Labmanager.src.clients import init_device_objs
 
 
 from Webinterface import lab
@@ -98,10 +98,11 @@ def addDevice():
                 if request.form[i] == '':
                     flash(f"Please fill out {i}")
                     formInvalid=True
+
             if request.form["password1"] != request.form["password2"]:
                 flash(f"Passwords do not match!")
                 formInvalid=True
-            if request.form["device_type"]=="Device Type":
+            if request.form["device_type"]=="Select":
                 flash("Please select a device type")
                 formInvalid=True
             
@@ -113,9 +114,11 @@ def addDevice():
             except KeyError: pass
             new_device=dict(request.form)
             new_device["password"]=new_device["password1"]
-
-            id = max([id['id'] for id in lab.db.temp_data['devices']])
-            id+=1
+            try:
+                id = max([id['id'] for id in lab.db.temp_data['devices']])
+                id+=1
+            except ValueError:
+                id=0
             new_device["id"]=id
             del new_device["password2"]
             del new_device["password1"]
@@ -129,5 +132,5 @@ def addDevice():
 
     except Exception as e:
         flash(e)
-    return render_template('Adddevice.html',device)
+    return render_template('Adddevice.html')
 
