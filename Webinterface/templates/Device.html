@@ -19,65 +19,67 @@
 {% endfor %}
 {% endif %}
 {% endwith %}
-
-
-<div class="p-5">
-
-  
-<div class=" d-flex align-items-center justify-content-between rounded" style="background-color: #173057;  padding: 5px;">
-  <h1>{{device.capitalize()}}</h1>
-  <div class="d-flex justify-content-end">
-    <a type="button" class="btn btn-info" style="margin-right: 5px;" href="/device/{{device}}/edit">
-      Edit
-    </a>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ConfirmDel">
-      Delete
-    </button>
-  </div>
-</div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="ConfirmDel" tabindex="-1" role="dialog" aria-labelledby="ConfirmDelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ConfirmDelLabel">Delete {{ device }}?</h5>
-          <button type="button" class="close rounded-circle" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h3>Are you sure you want to delete {{ device }}?</h3>
-          <div class="alert alert-danger">Warning: This cannot be undone!</div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <form method="post" >
-            <button type="submit" name="action" value="DELETE" class="btn btn-danger">Delete</button>
-        </form>        
-        </div>
+ <!-- Modal -->
+ <div class="modal fade" id="ConfirmDel" tabindex="-1" role="dialog" aria-labelledby="ConfirmDelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ConfirmDelLabel">Delete {{ device }}?</h5>
+        <button type="button" class="close rounded-circle" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Are you sure you want to delete {{ device }}?</h3>
+        <div class="alert alert-danger">Warning: This cannot be undone!</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form method="post" >
+          <button type="submit" name="action" value="DELETE" class="btn btn-danger">Delete</button>
+      </form>        
       </div>
     </div>
   </div>
-
-
-      
-  
-    <!-- Modal -->
-    <div class="modal fade" id="running" tabindex="-1" role="dialog" aria-labelledby="running" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-              <strong>Running Comand...</strong>
-              <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
-            </div>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="running" tabindex="-1" role="dialog" aria-labelledby="running" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <strong>Running Comand...</strong>
+            <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
           </div>
         </div>
       </div>
+    </div>
 
+
+<div class="p-5">
+  
+<div class=" d-flex align-items-center justify-content-between rounded p-1" id="pageheader">
+  <h1>{{device.capitalize()}}</h1>
+    <div class="d-flex justify-content-end">
+      <div class="col p-2 m-2 rounded" style="background-color: #0e1d48;">
+        <div class="d-flex justify-content-end" >
+
+        <a type="button" class="btn btn-outline-info" style="margin-right: 5px;" href="/device/{{device}}/edit">
+          Edit
+        </a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ConfirmDel">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
   <hr>
   <div class="container-fluid">
+    <div class="rounded p-1" style="background-color: #D9C580 ; margin-bottom: 1rem;">
+      <div style="background-color: #173057;" class=" p-2 rounded ">
     <div class="row d-flex justify-content-end">
       <div class="col-lg-4 col-md-5 col-sm-6 col-xs-6">
         <div class="card" >
@@ -96,7 +98,8 @@
         </div>
       </div>
     </div>
-      <div class="row">
+    <div class="col-lg-8 col-sm-16 ">
+      <div class="align-items-center justify-content-between">
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-status-tab" data-bs-toggle="tab" data-bs-target="#nav-status" type="button" role="tab" aria-controls="nav-status" aria-selected="true">status</button>
@@ -145,7 +148,7 @@
             </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
           </div>
-       
+        </div>
         </div>
       </div>
   </div>
