@@ -1,3 +1,4 @@
 cryptography>=41.0.1
 netmiko>=4.2.0
 flask>=2.3.2
+py-cpuinfo>=9.0.0
