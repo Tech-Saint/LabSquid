@@ -1,7 +1,5 @@
-try:
-    from .bin.Controller import *
-except:
-    from bin.Controller import *
+
+from .src.Controller import *
 
 import sys
       
@@ -14,7 +12,7 @@ def init_backend() -> Controller_unit:
     DeviceInstances = {}
 
     with ThreadPoolExecutor(max_workers=1024) as executor:
-        task = {executor.submit(init_device_objs,device): device for device in session.device_info["devices"]}
+        task = {executor.submit(init_device_objs,device): device for device in session.db.data["devices"]}
         for future in as_completed(task):
             _ = task[future]
             DeviceInstances[_["DNS_name"]] = future.result()
