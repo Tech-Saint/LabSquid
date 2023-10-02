@@ -4,7 +4,7 @@ from .db.database_interface import  _Database
 from .clients import *
 from datetime import datetime,timezone,timedelta
 
-import math, cpuinfo, socket, uuid, platform,psutil,time
+import math, cpuinfo, socket, uuid, platform,time
 
 output_list=[]
 
