@@ -2,7 +2,7 @@ import json, cryptography, os,re
 from sys import platform,path 
 from copy import deepcopy
 
-from Labmanager.bin.Localutils import log_event
+from Labmanager.src.Localutils import log_event
 
 #TODO figure out password storage.
 
@@ -86,26 +86,43 @@ class _Database():
         
 
     def load_db(self):
-        
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'r', encoding='utf-8') as f:
+        try:
+            with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'r', encoding='utf-8') as f:
                 self.data = json.load(f)
-
+        except FileNotFoundError:
+            with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'w', encoding = 'utf-8') as f:
+                self.data={
+                            "Templates": {
+                                "devices": [
+                                    "DNS_name",
+                                    "device_type",
+                                    "netmiko_type",
+                                    "ip",
+                                    "username",
+                                    "password"
+                                ]
+                            },
+                            "devices": []
+                            }
+                json.dump(self.data, f, indent = 4)
+                
     def update_db(self,entry:dict):
         """Give this a single database entry."""
         index=entry["id"]
-        self.data["devices"][index]=entry
+        self.temp_data["devices"][index]=entry
+        self.save_db()
         log_event(f"Updated entry:{entry['DNS_name']}")
 
     def add_device(self,entry:dict):
         entry["id"]=len(self.data["devices"])
-        self.data["devices"].append(entry)
+        self.temp_data["devices"].append(entry)
         self.save_db()
         log_event(f"Added entry:{entry['DNS_name']}")
     
     def remove_device(self,entry:dict):
         
         index=entry["id"]
-        del self.data["devices"][index]
+        del self.temp_data["devices"][index]
         self.save_db()
         log_event(f"Removed entry:{entry['DNS_name']}")
 

@@ -101,15 +101,9 @@ class Controller_unit():
             self.path_of_bin = os.path.dirname(os.path.realpath(__file__))
             self.path_of_db = self.path_of_bin + "/db/"
             
-        self.refresh_db()
         self.db= _Database()
         self.Tempdb = self.db.__repr__()
 
-    def refresh_db(self):
-        # set aside as I plan to update and refresh db alot.
-        with open(self.path_of_db+"device_db.json", "r" ) as db_temp:
-            self.device_info = json.load(db_temp)
-            db_temp.close()
     
     def update_db(self, DeviceInstances, dev_list:list=None):
         if dev_list == None: dev_list= list(DeviceInstances.keys())
@@ -172,6 +166,9 @@ class Controller_unit():
             for entry in jobs:  
                 result = entry.result(timeout=60)
                 results.append(result)
+
+        if instruction == 'update_info':
+            self.update_db(self.DeviceInstances)
         return results
 """    
     def pingThread(self):

@@ -75,13 +75,12 @@ class __client:
         status_dict["Roles"]="Not implemented"
 
         return status_dict
-
     def __str__(self):
         return self.DNS_name
     
     def __info__(self) -> dict:
 
-        ATRLIST = [attr for attr in vars(self) if not callable(getattr(self, attr)) and not attr.startswith("__") and attr not in ["device","Netmiko_settings"] ]
+        ATRLIST = [attr for attr in vars(self) if not callable(getattr(self, attr)) and not attr.startswith("__") and attr not in ["device","Netmiko_settings",'net_connect'] ]
         _={}
         for key in ATRLIST:
             _[key]=(getattr(self,key))
@@ -120,20 +119,17 @@ class __client:
                 log_event(best_match) # Name of the best device_type to use further
                 self.device ['netmiko_type'] = best_match
                 log_event(f"{self.DNS_name}> Successfully guessed the SSH format.")
+                net_connect = ConnectHandler(
+                    **self.Netmiko_settings, timeout=20
+                ) 
+                net_connect.find_prompt()
+                
+                return net_connect
 
             except Exception as e:
                 log_event(f"{self.DNS_name}> Failed to guess the SSH format due to error:{e}")
-            try:
-                self.Netmiko_settings = {
-                    "device_type": self.device ['netmiko_type'],
-                    "host": self.device ['ip'],
-                    "username": self.device ['username'],
-                    "password": self.device ['password'],
-                    "secret": self.device ['password'],
-                    "global_delay_factor": 3,
-                }
-            except Exception as e:
-                log_event(f"{self.DNS_name}> {e}")
+                return e.args
+
         except (NetMikoAuthenticationException, NetMikoTimeoutException):
             log_event("Could not authenticate in time to {}\nExiting...".format(self.Netmiko_settings["host"]))
             self.busy=False
@@ -156,6 +152,7 @@ class __client:
         if hasattr(self, do) and callable(func := getattr(self, do)):
             output=func(*args, **kwargs)
             self.lastOutput=output
+        
     
     def dns_query(self):
         """
@@ -198,6 +195,7 @@ class __client:
         self.busy=True
         self.net_connect=self.__init_ssh()
         output_list=[]
+        if type(self.net_connect) == tuple: return self.net_connect[0]
         self.net_connect.find_prompt()
         self.net_connect.enable(pattern="password")
         for command in command_lst:
@@ -239,7 +237,8 @@ class linux(__client):
         """
 
         output_list= self.execute_cmds(self.commands["update_info"])
-
+        if f'{self.DNS_name}>' not in output_list and type(output_list) != list:
+            raise Exception("failed to connect")
         self.device["cpu"]=output_list[0].replace((self.DNS_name+"> "),"")
         self.device["mfg"]=output_list[1].replace((self.DNS_name+"> "),"")
         self.device["os_ver"]=output_list[2].replace((self.DNS_name+'> PRETTY_NAME="'),"")
