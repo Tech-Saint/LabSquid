@@ -161,7 +161,5 @@ cython_debug/
 
 # device_db
 
-Labmanager/bin/db/
-
 Debug.txt
-Labmanager/bin/db/device_db.json
+Labmanager/src/db/device_db.json
