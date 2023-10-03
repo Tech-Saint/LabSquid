@@ -2,6 +2,7 @@ import json, os
 from concurrent.futures import ThreadPoolExecutor , as_completed
 from .db.database_interface import  _Database
 from .clients import *
+from .roles.BattHost import Batt_check
 from datetime import datetime,timezone,timedelta
 
 import math, cpuinfo, socket, uuid, platform,time
@@ -61,6 +62,13 @@ class Controller_unit():
             if len(_) != 2: continue
             if "Ping Every N Mins" in _[0] :
                 self.Ping_Cooldown = int(_[1])
+            elif "HostBatt" in _[0]:
+                if "True" in _[1]:
+                    self.Host_Batt_check=True
+                    self.Batt_check = Batt_check
+                    self.Batt_check(self)
+                else: 
+                    self.Host_Batt_check=False
             elif "Logging" in _[0]:
                 if "INFO" in _[1]:
                     logging.basicConfig(filename='log.txt', level=logging.INFO)
@@ -89,6 +97,8 @@ class Controller_unit():
             "Mac_Address" : ':'.join(re.findall('..', '%012x' % uuid.getnode()))
 
         }
+        if self.Host_Batt_check == True:
+            host["Battery Percent"]=self.Batt_Stat
         return host
 
     def file_setup(self):
@@ -142,6 +152,8 @@ class Controller_unit():
             _thread=ThreadPoolExecutor()
             _thread.submit(self.command('ping'))
             _thread.submit(self.command('dns_query'))
+            if self.Host_Batt_check == True:
+                _thread.submit(self.Batt_check(self))
             _thread.shutdown(False)
             time.sleep(int(self.Ping_Cooldown)*60)
 
