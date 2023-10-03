@@ -1,9 +1,8 @@
-
 from json import dumps as jsonstring
 
 
-from flask import Flask,render_template,request,Blueprint,flash,redirect,session
-
+from flask import Flask,render_template,request,Blueprint,flash,redirect,session,send_file
+import os
 
 
 from Webinterface import lab
@@ -31,4 +30,10 @@ def settings():
             flash(f"Failed to run due to error: \n{e}","danger")
 
     return render_template('settings.html')
-
+@views.route('logs')
+def return_logs():
+   
+    try:
+        return send_file(os.path.join(lab.path_of_tool,"log.txt"))
+    except Exception as e:
+        return str(e)

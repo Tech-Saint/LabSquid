@@ -71,15 +71,15 @@ class Controller_unit():
                     self.Host_Batt_check=False
             elif "Logging" in _[0]:
                 if "INFO" in _[1]:
-                    logging.basicConfig(filename='log.txt', level=logging.INFO)
+                    logging.basicConfig(filename=os.path.join(self.path_of_tool,'log.txt'), level=logging.INFO)
                     logging.info("Logging set to INFO")
                     self.logging = _[1]
                 elif "DEBUG" in _[1]:
-                    logging.basicConfig(filename='log.txt', level=logging.DEBUG)
+                    logging.basicConfig(filename=os.path.join(self.path_of_tool,'log.txt'), level=logging.DEBUG)
                     logging.info("Logging set to DEBUG")
                     self.logging = _[1]
                 else:
-                    logging.basicConfig(filename='log.txt', level=logging.CRITICAL)
+                    logging.basicConfig(filename=os.path.join(self.path_of_tool,'log.txt'), level=logging.CRITICAL)
                     logging.info("Logging set to CRITICAL")
                     self.logging = "CRITICAL" 
             else:
@@ -111,7 +111,7 @@ class Controller_unit():
             self.path_of_bin = os.path.dirname(os.path.realpath(__file__))
             self.path_of_db = self.path_of_bin + "/db/"
             
-        self.db= _Database()
+        self.db = _Database()
         self.Tempdb = self.db.__repr__()
 
     

@@ -6,7 +6,7 @@
       margin-bottom: 1%;
 
     }
-    .form-control::placeholder{color:black !important;}
+    .form-control::placeholder{color:#aaa !important;}
     </style>
     
 {% endblock %}
@@ -25,56 +25,98 @@
 {% endif %}
 {% endwith %}
 
-
-
-
-<form method="post" class="p-5"">
-    <div class="d-flex justify-content-between align-items-center rounded" style="background-color: #548DBF; padding: 1rem;">
-      <h1 >Editing {{device}}</h1>
-  
-      <div class="d-flex justify-content-end">
-        <div class="col p-2 rounded" style="background-color: #1A1A24;">
-          <div class="d-flex justify-content-end" >
-            <div class="p-1 d-flex flex-wrap justify-content-end"><a class="btn btn btn-outline-warning" href="/device/{{device}}">< Back</a>  </div>
+    <!-- Modal -->
+    <div class="modal fade" id="running" tabindex="-1" role="dialog" aria-labelledby="running" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <strong>Attempting to add device...</strong>
+              <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
 
-  <hr>
-  <div class="d-flex m-1 rounded" style="background-color: #D9C580;" >
-    <div class="p-3 m-2 rounded" style=" background-color: #173057;"">
-      <div class="d-flex align-items-center justify-content-between " >
-        <h3>Current Info</h3>
-      </div>
-      <hr>
-    <div class="d-flex row">
-    {% for val in lab.db.data["Templates"]["devices"] %}
 
-    <div class="col-xm col-xl-3 col-lg-4 col-md-6  px-0" >
-      <div class="rounded m-1 " style="background-color: #173057;">
-        
-        <div class="form-group d-flex row align-items-center justify-content-between m-1 rounded p-2">
-            <label for="{{val}}" class=" p-1 rounded h4" style="background-color: #548DBF;" >{{val.capitalize()|replace("_", " ")}}</label>
+
+  <div class="container-fluid p-5">
+    <div class="row justify-content-between ">
+      <div class="rounded p-1" style="background-color: #D9C580 ;">
+          <div class="col p-2 rounded" style=" background-color: #173057;"">
+      
+  
+            <div class="d-flex justify-content-between align-items-center rounded" style="background-color: #548DBF; padding: 1rem;">
+              <h3 >Editing {{device}}</h3>
           
-          <input
-            type="{{val}}"
-            class="form-control"
-            id="{{val}}"
-            name="{{val}}"
-            placeholder="{{ lab.DeviceInstances[device].device[val] }}"
-          />
+              <div class="d-flex justify-content-end">
+                <div class="col p-2 rounded" style="background-color: #0e1d48;">
+                  <div class="d-flex justify-content-end" >
+                    <div class="p-1 d-flex flex-wrap justify-content-end"><a class="btn btn btn-outline-warning" href="/device/{{device}}">< Back</a>  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <hr>
+          <form method="post">
+            {% for key in lab.db.data["Templates"]['devices'] %}  
+            
+              
+            {% if "Device type" in key.capitalize()|replace("_", " ") %}
+            <div class="form-group m-2 p-2 rounded" style="background-color: #0e1d48;">
+              <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
+                <div class="d-flex">
+                    <select class="form-group btn btn-info mx-auto w-100 h-100" style="background-color: #21498f;" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select ">
+                        <option value="{{ lab.DeviceInstances[device].device[key] }}" selected disabled hidden>{{ lab.DeviceInstances[device].device[key] }}</option>
+                        <option value="linux">Linux</option>
+                        <option value="win32">Windows</option>
+                        <option value="cisco">Cisco</option>
+                    </select>
+                  
+  
+                  {% elif "Netmiko type" in key.capitalize()|replace("_", " ") %}
+  
+                  {% elif "Password" in key.capitalize()|replace("_", " ") %}
+                  <div class="form-group m-2 p-2  rounded" style="background-color: #0e1d48;">
+                    <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
+                  <div class="form-groupp">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="Enter Password"
+                      style="background-color: #21498f; color: #fff""
+                    />
+  
+
+                
+  
+              {% else %}
+              <div class="form-group m-2 p-2 rounded" style="background-color: #0e1d48;">
+                <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222" for="key">{{key.capitalize()|replace("_", " ")}}</h4>
+                <div class="d-flex align-items-center justify-content-between">
+                <input
+                  type="{{key}}"
+                  class="form-control"
+                  id="{{key}}"
+                  name="{{key}}"
+                  placeholder="{{ lab.DeviceInstances[device].device[key] }}"
+                  style="background-color: #21498f; color: #fff"
+                />
+              </div>
+  
+  
+              {% endif %}
+              
+            </div>
+          {%endfor%}
+          <hr>
+            <button type="submit" class="btn btn-success text-dark mid" data-toggle="modal" data-target="#running" style="margin-top: 1rem;">Save</button>
+  
+          </form>
         </div>
-      </div>
     </div>
-      {%endfor%}
-        <button type="submit" class="btn btn-success text-dark mid" >Submit Changes</button>
-
-      </form>
-    </div>
-  </div>
-  </div>
-</div>
-
+  
+  
 {%endblock%}

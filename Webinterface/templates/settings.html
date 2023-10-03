@@ -61,7 +61,7 @@
         <hr>
         <form method="post">
           {% for key,val in lab.settings().items() %}  
-          <div class="form-group  rounded" style="background-color: #0e1d48;">
+          <div class="form-group m-2 p-2  rounded" style="background-color: #0e1d48;">
             <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
               <div class="d-flex align-items-center justify-content-between">
                 {% if "Logging level" in key.capitalize()|replace("_", " ")%}
@@ -69,6 +69,7 @@
                 <select class="form-group btn btn-primary" for="Logging" name="Logging" aria-label="Default select ">
                   <option value="{{val}}" selected disabled hidden>{{val}}</option>
                     <option value="DEBUG">DEBUG</option>
+                    <option value="INFO">INFO</option>
                     <option value="WARNING">WARNING</option>
                     <option value="CRITICAL">CRITICAL</option>
                 </select>
@@ -82,7 +83,7 @@
                 id="{{key}}"
                 name="{{key}}"
                 placeholder="{{ val }}"
-                style="background-color: #0e1d48;"
+                style="background-color: #21498f; color: #fff"
               />
             </div>
 
@@ -104,12 +105,12 @@
         <div class="d-flex align-items-center justify-content-between" >
           <h3>App Info</h3>
             <div class="d-flex justify-content-end" >
-              <a class="btn btn btn-outline-warning " href="/api/logs_txt" >Download Logs</a>
+              <a class="btn btn btn-outline-warning " href="/logs" >Download Logs</a>
             </div>
         </div>  
       </div>
       <hr>
-      <div class="rounded p-2" style="background-color: #0e1d48;">
+      <div class="rounded p-2" style="background-color: #21498f;">
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <button class="nav-link active" id="nav-status-tab" data-bs-toggle="tab" data-bs-target="#nav-status" type="button" role="tab" aria-controls="nav-status" aria-selected="true">status</button>
