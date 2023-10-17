@@ -1,6 +1,7 @@
 import json, cryptography, os,re
 from sys import platform,path 
 from copy import deepcopy
+from .SQL_DB import SQL_DB
 
 from Labmanager.src.Localutils import log_event
 
@@ -11,6 +12,7 @@ class _Database():
     def __init__(self):
         self.dir_path = os.path.join(os.path.dirname(__file__))
         self.Refresh_image_list()
+        self.userDB=SQL_DB()
         self.load_db()
         self.temp_data = deepcopy(self.data) # unlinks the dict.
         self.unsaved_changes = False

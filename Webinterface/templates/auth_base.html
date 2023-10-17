@@ -17,6 +17,18 @@
   </div>
 </nav>
 {% endblock %}
+{% with messages = get_flashed_messages() %}
+{%  if  messages %}
+{%  for  message  in  messages %} 
+<div class=" d-flex align-items-center justify-content-between alert alert-danger alert-dismissible fade show" role="alert">
+    <strong style="padding-left: 2rem;">Hold up! {{ message }}</strong> 
+    <a type="button" class="close fade show float-end btn rounded-circle " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true" >&times;</span>
+    </a>
+  </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
   <body>
     <div class="container-fluid p-5" >
       <div class="rounded p-1" style="background-color: #D9C580 ;">

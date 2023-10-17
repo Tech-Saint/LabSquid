@@ -2,7 +2,7 @@ import json, os
 from concurrent.futures import ThreadPoolExecutor , as_completed
 from .db.database_interface import  _Database
 from .clients import *
-from .roles.BattHost import Batt_check
+
 from datetime import datetime,timezone,timedelta
 
 import math, cpuinfo, socket, uuid, platform,time
@@ -97,8 +97,6 @@ class Controller_unit():
             "Mac_Address" : ':'.join(re.findall('..', '%012x' % uuid.getnode()))
 
         }
-        if self.Host_Batt_check == True:
-            host["Battery Percent"]=self.Batt_Stat
         return host
 
     def file_setup(self):
