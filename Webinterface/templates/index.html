@@ -83,6 +83,7 @@
             </h2>
           </div>
           <hr>
+          <div class="rounded p-2 m-1" style="background-color: #21498f;">
           {%set tempdict = lab.host_info() %}
           {% if tempdict|length < 1 %}
           <h3 style="padding-left: 3%; padding: 10px; ">No commands run</h3>
@@ -102,9 +103,9 @@
               {%endfor%}
             </tbody>
             
-          </table>
-          
+          </table>          
           {%endif%}
+          </div>
         </div>
           <div class="d-flex align-items-center justify-content-between rounded  m-1 " style="background-color: #548DBF!important;">
             <h2 style="padding-left: 3%; padding: 10px; ">
@@ -112,6 +113,7 @@
             </h2>
           </div>
           <hr>
+          <div class="rounded p-2 m-1" style="background-color: #21498f;">
           {%set tempdict = lab.last_run_command%}
           {% if tempdict|length < 1 %}
           <h3 style="padding-left: 3%; padding: 10px; ">No commands run</h3>
@@ -135,6 +137,7 @@
           </table>
           
           {%endif%}
+          </div>
         </div>
       </div>
       </div>

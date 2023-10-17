@@ -51,7 +51,7 @@
         <div class="col p-3  rounded" style=" background-color: #173057;"">
     
 
-        <div class=" p-3 mx-0 rounded" style=" background-color: #21498f;"">
+        <div class=" p-3 mx-0 rounded" style=" background-color: #548DBF;"">
          <div class="d-flex align-items-center justify-content-between" >
           <h3>App Settings</h3>
 
@@ -101,11 +101,11 @@
     <div class="rounded p-1" style="background-color: #D9C580 ; margin-bottom: 1rem;">
     <div class="col p-3 rounded" style=" background-color: #173057;"">
 
-       <div class=" p-3 mx-0 rounded" style=" background-color: #21498f;"">
+       <div class=" p-3 mx-0 rounded" style=" background-color: #548DBF;"">
         <div class="d-flex align-items-center justify-content-between" >
           <h3>App Info</h3>
-            <div class="d-flex justify-content-end" >
-              <a class="btn btn btn-outline-warning " href="/logs" >Download Logs</a>
+            <div class="d-flex justify-content-end p-2 rounded" style=" background-color: #173057;">
+              <a class="btn btn-sm btn-outline-warning " href="/logs" >Download Logs</a>
             </div>
         </div>  
       </div>
@@ -118,9 +118,9 @@
             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
           </div>
         </nav>
-        <div class="tab-content" id="nav-tabContent" style="overflow: hidden; overflow-x: scroll;"">
+        <div class="tab-content" id="nav-tabContent" style="overflow: hidden; overflow-y: scroll;">
           <div class="tab-pane fade show active" id="nav-status" role="tabpanel" aria-labelledby="nav-status-tab">
-            <table class="table table-hover table-boardered border border-primary rounded ">
+            <table class="table table-hover table-boardered border border-primary rounded mx-0">
               <tr>
                 {%set tempdict = lab.settings() %}
                 {% for key,val in tempdict.items() %}
