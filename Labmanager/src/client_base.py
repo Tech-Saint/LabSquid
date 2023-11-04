@@ -18,7 +18,7 @@ class __client:
         self.DNS_name = device ["DNS_name"]
         self.os_type = device ["device_type"]
         log_event(f"initialized {self.DNS_name}")
-        self.busy=False
+        self.busy = False #spin lock for app
         try: device ['netmiko_type']
 
         except KeyError:
@@ -55,6 +55,7 @@ class __client:
         self.ping()
 
     def __status__(self) -> dict:
+        """Returns base status"""
         status_dict={}
         status_dict["ip"]=self.device["ip"]
         status_dict["id"]=self.device["id"]
@@ -63,6 +64,7 @@ class __client:
         status_dict["Roles"]="Not implemented"
 
         return status_dict
+    
     def __str__(self):
         return self.DNS_name
     
