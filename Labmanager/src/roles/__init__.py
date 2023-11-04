@@ -1,15 +1,3 @@
+import os, pkgutil
 
-
-def init_Roles(Device):
-    """Takes in device and modifies the SSH CMDs to fit"""
-    for role in Device.roles:
-        match role:
-            case "dns":
-                Device.update_DNS = update_DNS() 
-            case _:
-                pass
-            
-        
-
-def update_DNS():
-    pass
+__all__ = list(module for _, module, _ in pkgutil.iter_modules([os.path.dirname(__file__)]))
