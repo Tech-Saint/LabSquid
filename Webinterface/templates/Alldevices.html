@@ -22,10 +22,10 @@
   </div>
 
   <hr>
-  <div class="d-flex row align-items-center">
+  <div class="d-flex row align-items-top">
 {% for device,instance in lab.DeviceInstances.items() %}
   <div class="col-xxl-4 col-lg-6">
-  <div class="rounded p-1" style="background-color: #D9C580 ;">
+  <div class="rounded p-1 m-2" style="background-color: #D9C580 ;">
   <div style="background-color: #173057;" class=" p-2 rounded">
     <div class=" d-flex align-items-center justify-content-between rounded mx-0" id="pageheader">
       <h2 style="margin-left: 1rem; margin: auto;">{{device.capitalize()}}</h2>
