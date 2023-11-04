@@ -14,10 +14,23 @@ class SQL_DB:
                 Username TEXT NOT NULL,
                 Email TEXT UNIQUE NOT NULL,
                 Password TEXT NOT NULL
-            )
+            );
+
             """
         )
-
+        self.execute_query(
+                """"CREATE TABLE IF NOT EXISTS Devices (
+                ID INTEGER PRIMARY KEY,
+                DNS_name TEXT NOT NULL,
+                DNS_name TEXT NOT NULL,
+                device_type TEXT NOT NULL,
+                netmiko_type TEXT,
+                ip VARCHAR() NOT NULL,
+                username TEXT NOT NULL,
+                password TEXT NOT NULL
+            );
+             """   
+        )
     def create_connection(self):
         self.connection = None
         try:
