@@ -1,11 +1,11 @@
 import json, os
 from concurrent.futures import ThreadPoolExecutor , as_completed
 from .db.database_interface import  _Database
-from .clients import *
+from .clients import logging, init_device_objs, log_event
 
 from datetime import datetime,timezone,timedelta
 
-import math, cpuinfo, socket, uuid, platform,time
+import math, cpuinfo, socket, uuid, platform,time, re
 
 output_list=[]
 
@@ -20,7 +20,7 @@ class Controller_unit():
             self.IpAddress = e.submit(socket.gethostbyname,socket.gethostname())
             e.shutdown(False)
 
-        self.path_of_tool = path[0]
+        self.path_of_tool = os.path.join(os.path.dirname(__file__))
         self.readappconfig()
         self.file_setup()
 
@@ -50,8 +50,8 @@ class Controller_unit():
         self.logging=level
 
     def readappconfig(self):
-        path, filename = os.path.split(os.path.realpath(__file__))
-        with open(os.path.join(path,"Config.cfg")) as app_config_file:
+        self.path_of_tool, filename = os.path.split(os.path.realpath(__file__))
+        with open(os.path.join(self.path_of_tool,"Config.cfg")) as app_config_file:
             app_config=app_config_file.readlines()
         regex = re.compile(r'(.*)=(.*)')
         for i in app_config:
@@ -118,7 +118,8 @@ class Controller_unit():
         
         for i in dev_list:
             self.db.update_db(DeviceInstances[i].device)
-        self.db.save_db()
+
+        
         
     def UpdateSettings(self, RequestDict:dict):
         result=[]

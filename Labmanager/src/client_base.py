@@ -2,7 +2,7 @@ from os import popen
 from sys import platform,path 
 from socket import gethostbyname
 from netmiko import ConnectHandler, NetMikoAuthenticationException, NetMikoTimeoutException, SSHDetect
-import re
+
 from .Localutils import *
 
 class __client:
@@ -58,7 +58,7 @@ class __client:
         """Returns base status"""
         status_dict={}
         status_dict["ip"]=self.device["ip"]
-        status_dict["id"]=self.device["id"]
+        status_dict["id"]=self.device["_id"]
         status_dict["Os_type"]=self.os_type
         status_dict["pingable"]=self.pingable
         status_dict["Roles"]="Not implemented"

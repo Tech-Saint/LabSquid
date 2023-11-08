@@ -1,7 +1,12 @@
 import json, cryptography, os,re
 from sys import platform,path 
 from copy import deepcopy
-from .SQL_DB import SQL_DB
+try:
+    from .SQL_DB import SQL_DB
+except:
+    from SQL_DB import SQL_DB
+
+from pymongo import MongoClient
 
 from Labmanager.src.Localutils import log_event
 
@@ -10,11 +15,15 @@ from Labmanager.src.Localutils import log_event
 class _Database():
     """Creates and loads a DB object to change and update."""
     def __init__(self):
+        myclient = MongoClient("mongodb://localhost:27017/")
+        
+        mydb = myclient["DeviceDatabase"]
+        self.devices = mydb["Devices"]
+
         self.dir_path = os.path.join(os.path.dirname(__file__))
         self.Refresh_image_list()
         self.userDB=SQL_DB()
         self.load_db()
-        self.temp_data = deepcopy(self.data) # unlinks the dict.
         self.unsaved_changes = False
         log_event("Initalized DB Object")
     
@@ -45,7 +54,7 @@ class _Database():
         """Verfies All of the database entries"""
         
         if database == None:
-            database = self.temp_data
+            database = self.data
             using_database = True
 
         for i in list(database.keys()):
@@ -78,8 +87,15 @@ class _Database():
         result_list=self.Verify_all_data()
         if result_list != ["All data was verified successfully."]:
             return result_list
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'w', encoding = 'utf-8') as f:
-            json.dump(self.temp_data, f, indent = 4)
+
+        for I in self.data["devices"]:
+
+            self.devices.update_one(
+                {"_id": I["_id"]},
+                {"$set": I }
+                )
+
+
         result_list.append("Saved Database")
         self.load_db()
         self.unsaved_changes = False
@@ -88,44 +104,55 @@ class _Database():
         
 
     def load_db(self):
-        try:
-            with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'r', encoding='utf-8') as f:
-                self.data = json.load(f)
-        except FileNotFoundError:
-            with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),"device_db.json"), 'w', encoding = 'utf-8') as f:
-                self.data={
-                            "Templates": {
-                                "devices": [
-                                    "DNS_name",
-                                    "device_type",
-                                    "netmiko_type",
-                                    "ip",
-                                    "username",
-                                    "password"
-                                ]
-                            },
-                            "devices": []
-                            }
-                json.dump(self.data, f, indent = 4)
+
+        self.data={
+                    "Templates": {
+                        "devices": [
+                            "DNS_name",
+                            "device_type",
+                            "netmiko_type",
+                            "ip",
+                            "username",
+                            "password"
+                        ]
+                    },
+                    "devices": list(self.devices.find({}))
+                    }
                 
     def update_db(self,entry:dict):
         """Give this a single database entry."""
-        index=entry["id"]
-        self.temp_data["devices"][index]=entry
-        self.save_db()
+        
+        result=self.Verify_data(entry)
+        if len(result) != 0:
+            log_event(f"""Failed to Add entry:{entry['DNS_name']}\n
+                      Values: {"/n".join(str(key) + ": " + str(value) for key, value in Database.data["devices"][0].items())}
+                      """)
+
+
+        self.devices.update_one(
+                {"_id": entry["_id"]},
+                {"$set": entry }
+                )
+        
+        self.load_db()
         log_event(f"Updated entry:{entry['DNS_name']}")
 
     def add_device(self,entry:dict):
-        entry["id"]=len(self.data["devices"])
-        self.temp_data["devices"].append(entry)
-        self.save_db()
+        result=self.Verify_data(entry)
+        if len(result) != 0:
+            log_event(f"""Failed to Add entry:{entry['DNS_name']}\n
+                      Values: {"/n".join(str(key) + ": " + str(value) for key, value in Database.data["devices"][0].items())}
+                      """)
+            return "Failed to Add entry"
+        
+        entry["_id"] = self.devices.insert_one(entry).inserted_id
+        
         log_event(f"Added entry:{entry['DNS_name']}")
     
     def remove_device(self,entry:dict):
-        
-        index=entry["id"]
-        del self.temp_data["devices"][index]
-        self.save_db()
+        self.devices.delete_one(
+                entry
+                )
         log_event(f"Removed entry:{entry['DNS_name']}")
 
 
@@ -133,12 +160,12 @@ if __name__ == "__main__":
 
     def add_entry_cli(data,loc):
         stop=False
-        temp_data = data.copy()
+        
         while stop != True:
             data[loc].append({})
             for x in data["Templates"][loc]:
                 temp=input(f"{x}:")
-                temp_data[loc][-1].update({x:str(temp)})
+                data.temp_data[loc][-1].update({x:str(temp)})
             temp_data[loc][-1]['id']=len(temp_data[loc])-1
             stop = bool(input("Hit enter to continue or type exit to stop and commit changes.\n"))
         data[loc]=temp_data[loc]
@@ -146,10 +173,10 @@ if __name__ == "__main__":
 
     def remove_entry_cli(data,loc):
             stop=False
-            temp_data = data.copy()
+            
             while stop != True:
                 Local_keys=[]
-                for index,value in enumerate(temp_data[loc]):
+                for index,value in enumerate(data.temp_data[loc]):
                     print(f"{index} : {value}")
                     Local_keys.append(index)
                     
@@ -170,7 +197,7 @@ if __name__ == "__main__":
                     
                 main_selection = int(input("type the number attached to the entry to modify it."))
                 Local_keys.clear()
-
+                n=0
                 for i in temp_data[loc][main_selection].keys():
                     print(f"{n} : {i}")
                     Local_keys.append(i)
@@ -228,10 +255,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
             exit()
 
-
-
-
-    
     
     def del_entries(self,selected:list, dictkey) -> str:
         """
