@@ -1,7 +1,10 @@
-
-from .src.Controller import *
+try: 
+    from .src.Controller import Controller_unit, init_device_objs
+except:
+    from src.Controller import Controller_unit
 
 import sys
+from concurrent.futures import ThreadPoolExecutor , as_completed
       
 
 def init_backend() -> Controller_unit:
@@ -18,7 +21,6 @@ def init_backend() -> Controller_unit:
             DeviceInstances[_["DNS_name"]] = future.result()
 
     session.DeviceInstances=DeviceInstances
-    session.update_db(session.DeviceInstances)
     _threadPool=ThreadPoolExecutor(max_workers=1)
     _pingthread=_threadPool.submit(session.Action_thread)
     _threadPool.shutdown(False)
