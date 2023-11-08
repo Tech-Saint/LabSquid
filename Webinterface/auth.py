@@ -7,7 +7,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login',methods=['GET', 'POST'])
 def login():
     if request.method=="POST":
-        session["logged_in"]=True
+        session["logged_in"] = False
         formInvalid=False
         for i in request.form:
             if request.form[i] == '':
@@ -28,6 +28,8 @@ def login():
             session["email"] = Return[-1][2]
             return redirect("/")
         flash("Invalid Password")
+    if lab.db.userDB.execute_query(f"""SELECT * FROM users""") == []:
+        return redirect('/signup')
     return render_template("login.html")
 
 @auth.route('/logout',methods=['GET', 'POST'])
@@ -63,6 +65,5 @@ def signup():
             flash(result)
         else:
             lab.db.userDB.connection.commit()
-
         return redirect("/login")
     return render_template("signup.html")
