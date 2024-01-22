@@ -65,8 +65,8 @@ class Controller_unit():
             elif "HostBatt" in _[0]:
                 if "True" in _[1]:
                     self.Host_Batt_check=True
-                    self.Batt_check = Batt_check
-                    self.Batt_check(self)
+                    #self.Batt_check = Batt_check
+                    #self.Batt_check(self)
                 else: 
                     self.Host_Batt_check=False
             elif "Logging" in _[0]:
