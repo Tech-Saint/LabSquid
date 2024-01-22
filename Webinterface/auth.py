@@ -36,6 +36,8 @@ def login():
 def logout():
     try:
         del session["logged_in"]
+        del session["user"]
+        del session["email"]
     except: pass
     return redirect("/login")
 
@@ -67,3 +69,47 @@ def signup():
             lab.db.userDB.connection.commit()
         return redirect("/login")
     return render_template("signup.html")
+
+@auth.route('/account', methods=["GET","POST"])
+def account():
+    if 'logged_in' not in session:
+        return redirect("/login")
+
+    if request.method=="POST":
+        result = lab.db.userDB.execute_query(f"""
+            SELECT * FROM users WHERE Username = "{session["name"]}"
+            """)
+        form_list=[]
+        for i in request.form:
+            
+            if i in ["password1","password2"]:
+                pass
+            elif request.form[i] == '':
+                continue
+            else:
+                
+                form_list.append(f"request.form[i]") 
+        
+        # password check 
+        if request.form["password1"] != request.form["password2"]:
+            flash(f"Passwords do not match!")
+            formInvalid=True
+        
+        
+
+
+        if formInvalid == True:
+            return render_template("Account.html")
+        
+        result = lab.db.userDB.execute_query(f"""
+            Update users
+            SET 
+            set Username = {request.form['username']}, Email, Password
+            )""")
+        
+        if result!=[]:
+            flash(result)
+        else:
+            lab.db.userDB.connection.commit()
+        return redirect("/login")
+    return render_template("Account.html")
