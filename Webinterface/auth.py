@@ -7,7 +7,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login',methods=['GET', 'POST'])
 def login():
     if request.method=="POST":
-        session["logged_in"] = False
+        session["logged_in"]=True
         formInvalid=False
         for i in request.form:
             if request.form[i] == '':
@@ -28,14 +28,14 @@ def login():
             session["email"] = Return[-1][2]
             return redirect("/")
         flash("Invalid Password")
-    if lab.db.userDB.execute_query(f"""SELECT * FROM users""") == []:
-        return redirect('/signup')
     return render_template("login.html")
 
 @auth.route('/logout',methods=['GET', 'POST'])
 def logout():
     try:
         del session["logged_in"]
+        del session["user"]
+        del session["email"]
     except: pass
     return redirect("/login")
 
@@ -65,5 +65,40 @@ def signup():
             flash(result)
         else:
             lab.db.userDB.connection.commit()
+
         return redirect("/login")
     return render_template("signup.html")
+
+@auth.route('/account', methods=["GET","POST"])
+def account():
+    if 'logged_in' not in session:
+        return redirect("/login")
+
+    if request.method=="POST":
+        result = lab.db.userDB.execute_query(f"""
+            SELECT * FROM users WHERE Username = "{session["name"]}"
+            """)
+        
+        for i in request.form:
+            if request.form[i] == '':
+                flash(f"Please fill out {i}")
+                formInvalid=True
+
+        if request.form["password1"] != request.form["password2"]:
+            flash(f"Passwords do not match!")
+            formInvalid=True
+
+        if formInvalid == True:
+            pass
+        
+        result = lab.db.userDB.execute_query(f"""
+            INSERT INTO users (Username, Email, Password) VALUES (
+                '{request.form["username"]}', '{request.form["email"]}', '{request.form["password1"]}'
+            )""")
+        
+        if result!=[]:
+            flash(result)
+        else:
+            lab.db.userDB.connection.commit()
+        return redirect("/login")
+    return render_template("Account.html")

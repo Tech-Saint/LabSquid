@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    .form-group {
+      margin-bottom: 1%;
+
+    }
+    .form-control::placeholder{color:#aaa !important;}
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+{%  if  messages %}
+{%  for  message  in  messages %} 
+<div class=" d-flex align-items-center justify-content-between alert alert-danger alert-dismissible fade show" role="alert">
+    <strong style="padding-left: 2rem;">Hold up! {{ message.capitalize()|replace("_", " ") }}</strong> 
+    <a type="button" class="close fade show float-end btn rounded-circle " style="text-decoration:none" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true" >&times;</span>
+    </a>
+  </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="running" tabindex="-1" role="dialog" aria-labelledby="running" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <strong>Updating User Info...</strong>
+              <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+  <div class="container-fluid p-5">
+    <div class="row justify-content-between ">
+      <div class="rounded p-1" style="background-color: #D9C580 ;">
+          <div class="col p-2 rounded" style=" background-color: #173057;"">
+            <div class=" d-flex align-items-center justify-content-between rounded p-1" id="pageheader">
+ 
+            <h2>Howdy, {{session["name"]}}!</h2>
+            </div>
+
+
+          <form method="post">
+
+        <hr>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="username"
+            class="form-control"
+            id="username"
+            name="username"
+            placeholder="{{session['name']}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="{{session['email']}}"
+          />
+        </div>
+        <div class="form-group">
+            <label for="password">Original Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter Old Password"
+            />
+        <div class="form-group">
+          <label for="password1">New Password</label>
+          <input
+            type="password1"
+            class="form-control"
+            id="password1"
+            name="password1"
+            placeholder="New Password"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password2">Confirm Password</label>
+          <input
+            type="password2"
+            class="form-control"
+            id="password2"
+            name="password2"
+            placeholder="Confirm New Password"
+          />
+        </div>  
+
+      
+          <hr>
+            <button type="submit" class="btn btn-success text-dark mid" data-toggle="modal" data-target="#running" style="margin-top: 1rem;">Save</button>
+  
+          </form>
+        </div>
+    </div>
+  
+  
+{%endblock%}
