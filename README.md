@@ -1,13 +1,14 @@
 # LabManager
 This app is meant for automating tasks like updating machines, rebooting, and gathering info. 
 
-## Features
+## Current Features
 
 - Gather info for devices
 - Reboot and shutdown devices.
 
 ## Dependencies
 - Python3.10+
+- Running instance of MongoDB
 
 ## Installation 
 
@@ -16,7 +17,7 @@ This app is meant for automating tasks like updating machines, rebooting, and ga
 3. Run:
 
 ```bash
-python3.10 -m pip install -r 'requirements.txt'
+python3 -m pip install -r 'requirements.txt'
 ```
 4. Now add devices to the database using "database_interface.py" inside of /bin/db
 5. Run the app by using main.py (For testing)
@@ -25,25 +26,17 @@ python3.10 -m pip install -r 'requirements.txt'
 
 **Devices**
 
-The device db is located at "/bin/db/device_db.json". Devices are added,  modified, and removed using database_interace.py. For now passwords are stored in plain text. 
+The device db is located inside of the mongodb. Devices are added, modified, and removed using database_interface.py. For now passwords are stored in plain text. 
 
-Each device in the Json db are initallied to the dictionary called "Device_instances" as a class. Device actions are called by using the DNS name of the device and calling a method to it. This looks like this:
+Each device in the Json db are initialled to the dictionary called "Device_instances" as a class. Device actions are called by using the DNS name of the device and calling a method to it. This looks like this:
 
 ```python
 output = Device_instances["dns_name"].dynamic_method_call("update_info")
 ```
 
-**Dynamic Methods**
+**Custom device types**
 
-The method dynamic_method_call is the key to making everything work. It allows methods like .ping(), .exec_cmds(), and .update_info() to be called with only a string.
-
-**Saving the DB** 
-
-The app does not automatically update the device info. 
-To save the database call this:
-```python
-session.update_db(Device_instances)
-```
+One can create a new device class by following the format of 
 
 ## Contribute
 
