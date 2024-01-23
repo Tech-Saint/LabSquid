@@ -2,7 +2,7 @@ from ..client_base import __client
 
 
 class turing_pi2(__client):
-    
+    deviceName = "turing"
     def __init__(self, device:str):
         super().__init__(device)
 
