@@ -1,7 +1,7 @@
 import json, os
 from concurrent.futures import ThreadPoolExecutor , as_completed
 from .db.database_interface import  _Database
-from .clients import logging, init_device_objs, log_event
+from .clients import logging, log_event, build_device_init_dict
 
 from datetime import datetime,timezone,timedelta
 
@@ -24,6 +24,7 @@ class Controller_unit():
         self.path_of_tool = os.path.join(os.path.dirname(__file__))
         self.readappconfig()
         self.file_setup()
+        self.deviceInitDict = build_device_init_dict()
         
 
     def settings(self)->dict:
@@ -122,7 +123,6 @@ class Controller_unit():
             self.db.update_db(DeviceInstances[i].device)
 
         
-        
     def UpdateSettings(self, RequestDict:dict):
         result=[]
         for I in RequestDict.keys():
@@ -158,8 +158,6 @@ class Controller_unit():
             _thread.shutdown(False)
             time.sleep(int(self.Ping_Cooldown)*60)
 
-    ## testing 
-
     def command(self,instruction:str, devices:list=None) ->str:
         """pass None to dev list to do all instances"""
         if devices == None: devices= list(self.DeviceInstances.keys())
@@ -183,55 +181,11 @@ class Controller_unit():
         if instruction == 'update_info':
             self.update_db(self.DeviceInstances)
         return results
-"""    
-    def pingThread(self):
-
-        try:
-            for key in self.Cooldown_tag.keys():
-                print(DeviceInstances.[key])
-                if (datetime.now(timezone.utc).timestamp() >= ((self.Ping_Cooldown*60) + DeviceInstances.[key])):
-                    self.Cooldown_tag.pop(key)
-        except Exception as e:
-            pass
-            log_event(f"Expected Error: {e} Trying again later...", printout=True)
-
     
-    def start_ping_thread(self):
-        _threadPool=ThreadPoolExecutor(max_workers=1)
-        ping_future=_threadPool.submit(self.pingThread)
-        _threadPool.shutdown(False)
-"""
-"""  
-def sort_device_db(data,db):
-    ip_regex=r"(?:[\d]{1,3})"
-    db_len=len(data[db])
-
-    for i in range(db_len):
-        # prep for RADIX sort
-        ip_byte_List= re.findall(ip_regex, data[db][i]["ip"])
-        # Check if the bytes are valid in the IP address. 
-        highest_value=max([int(i) for i in ip_byte_List])
-        if highest_value > 254:
-            Valid=False
-            DNS_name=data[db][i]['DNS_name']
-            while Valid != True:
-                "The IP for {DNS_name} is invalid, \nPlease type a correct number below")
-                updated_val=input()
-                Valid=bool(int(max(re.findall(ip_regex, data[db][i]["ip"])))> 254)
-                data[db][i]["ip"]=updated_val
-        data[db][i]["sort_temp"]=int(''.join([_.zfill(3) for _ in ip_byte_List])) #adds Zfills to buffer
-
-    data[db] = sorted(data[db], key=lambda d: d['ip']) # sorts for *hopefully* fast reading later. 
-    for i in range(len(data[db])):
-        data[db][i]["id"]=i
-        try:
-            highest_value=max([int(i) for i in re.findall(ip_regex, data[db][i]["ip"])])
-            if highest_value > 254:
-                Valid=False
-                while Valid != True:
-                    "The IP for {'DNS_name'} is invalid, \nPlease type a correct number below")
-                    updated_val=input()
-                    Valid=bool(int(max(re.findall(ip_regex, data[db][i]["ip"])))> 254)
-        except KeyError:pass
-    data[db] = sorted(data[db], key=lambda d: d['ip']) # sorts for *hopefully* fast reading later. 
-    """  
+    def init_device_objs(self,device:dict) -> object:
+        """Determines correct class based on device type"""
+        try: 
+            deviceClass = self.deviceInitDict[device["device_type"]]
+            return deviceClass(device)
+        except KeyError:
+            log_event(f"Failed to match a device class to the recorded device {device}")

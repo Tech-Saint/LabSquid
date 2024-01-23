@@ -1,5 +1,5 @@
 try: 
-    from .src.Controller import Controller_unit, init_device_objs
+    from .src.Controller import Controller_unit
 except:
     from src.Controller import Controller_unit
 
@@ -15,7 +15,7 @@ def init_backend() -> Controller_unit:
     DeviceInstances = {}
 
     with ThreadPoolExecutor(max_workers=1024) as executor:
-        task = {executor.submit(init_device_objs,device): device for device in session.db.data["devices"]}
+        task = {executor.submit(session.init_device_objs,device): device for device in session.db.data["devices"]}
         for future in as_completed(task):
             _ = task[future]
             DeviceInstances[_["DNS_name"]] = future.result()
