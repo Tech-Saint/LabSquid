@@ -16,16 +16,16 @@ def build_device_init_dict() -> dict:
          "linux": linux,
     }
     modlist = [module for module in globals() if not module.startswith("__")]
-    print(modlist)
     for moduleName in modlist:
         module = globals()[moduleName]
         for objName in dir(module):
             try:
-                if issubclass((getattr(module, objName)),(__client,win32,linux)) == True and objName != "__client":
+                if issubclass((getattr(module, objName)),__client) == True and objName != "__client":
                     moddedDevice = getattr(module, objName)
                     deviceBuilderDict[moddedDevice.deviceName] = moddedDevice
+                    
             except: pass
-        return deviceBuilderDict
+    return deviceBuilderDict
 
 
 
