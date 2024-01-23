@@ -7,6 +7,7 @@ from datetime import datetime,timezone,timedelta
 
 import math, cpuinfo, socket, uuid, platform,time, re
 
+
 output_list=[]
 
 class Controller_unit():
@@ -23,6 +24,7 @@ class Controller_unit():
         self.path_of_tool = os.path.join(os.path.dirname(__file__))
         self.readappconfig()
         self.file_setup()
+        
 
     def settings(self)->dict:
         settings={}
