@@ -138,10 +138,11 @@ class __client:
         """
 
         do = f"{func}"
-        log_event(f"Truying to call {func} on {self.DNS_name}")
+        log_event(f"Trying to call {func} on {self.DNS_name}")
         if hasattr(self, do) and callable(func := getattr(self, do)):
             output=func(*args, **kwargs)
             self.lastOutput=output
+            return output
         
     
     def dns_query(self):
