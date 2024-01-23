@@ -203,3 +203,73 @@ class __client:
     def reboot(self):
         ## TODO add thread to check on status of ip. 
         output_list= self.execute_cmds(self.commands["reboot"])
+        
+        
+        
+        
+
+class linux(__client):
+    
+    def __init__(self, device:str):
+        super().__init__(device)
+
+        self.commands= {
+                "update_info":[
+                    "sudo dmidecode --string='processor-version'",
+                    "sudo dmidecode --string='system-manufacturer'",
+                    'cat /etc/*-release | grep -i "PRETTY_NAME"',
+                    "sudo dmidecode -s system-product-name"
+                    ],
+                "shutdown":["sudo shutdown"],
+                "reboot":["sudo reboot"]
+                }
+
+    def update_info(self):
+        """This updates the class instance's copy of the data base for its respective entry.
+        TODO: covert the hard coded lines to regexes. 
+        Note: this SHOULD not update the main session.db.data. 
+        """
+
+        output_list= self.execute_cmds(self.commands["update_info"])
+        if f'{self.DNS_name}>' not in output_list and type(output_list) != list:
+            raise Exception("failed to connect")
+        self.device["cpu"]=output_list[0].replace((self.DNS_name+"> "),"")
+        self.device["mfg"]=output_list[1].replace((self.DNS_name+"> "),"")
+        self.device["os_ver"]=output_list[2].replace((self.DNS_name+'> PRETTY_NAME="'),"")
+        self.device["Device"]=output_list[3].replace((self.DNS_name+'> '),"")
+        return "updated"
+
+class win32(__client):
+    
+    def __init__(self, device:str):
+        super().__init__(device)
+
+        self.commands= {
+        "update_info":[
+            "wmic cpu get name",
+            "wmic baseboard get manufacturer",
+            'systeminfo | findstr /B /C:"OS Name" /B /C:"OS Version"',
+            ],
+        "update":[
+            "cmd.exe",
+            "wuauclt /detectnow",
+            "wuauclt /updatenow"
+            ],
+        "shutdown":["shutdown /s /t 00"],
+        "reboot":["shutdown /r /t 00"]
+        }
+
+
+    def update_info(self):
+        """This updates the class instance's copy of the data base for its respective entry.
+        
+        Note: this SHOULD not update the main session.db.data. 
+        """
+
+        log_event(f"Updating info for {self.DNS_name}")
+        output_list= self.execute_cmds(self.commands["update_info"])
+
+        self.device["cpu"]=output_list[0].replace((self.DNS_name+"> OS Name:"),"")
+        self.device["mfg"]=output_list[1].replace((self.DNS_name+"> "),"")
+        self.device["os_ver"]=output_list[3].replace((self.DNS_name+"> "),"")
+        return "Updated"
