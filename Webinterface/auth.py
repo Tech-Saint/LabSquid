@@ -69,7 +69,7 @@ def signup():
         return redirect("/login")
     return render_template("signup.html")
 
-@auth.route('/account', methods=["GET","POST"])
+@auth.route('/Account', methods=["GET","POST"])
 def account():
     if 'logged_in' not in session:
         return redirect("/login")
