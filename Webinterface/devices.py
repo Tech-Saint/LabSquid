@@ -21,7 +21,7 @@ def edit_single_dev(device):
                 #append data 
                 temp_device = copy.deepcopy(lab.db.data['devices'][lab.DeviceInstances[device].device["id"]])
                 for i in request.form:
-                    if request.form[i] == '':
+                    if request.form[i] == '':   
                         continue
                     else:
                         temp_device[i]=request.form[i]
@@ -34,7 +34,7 @@ def edit_single_dev(device):
                 
                 else:
                     #apply changes 
-                    lab.db.temp_data['devices'][lab.DeviceInstances[device].device["id"]]=temp_device
+                    lab.db.data['devices'][lab.DeviceInstances[device].device["id"]]=temp_device
                     result=lab.db.save_db()
                     lab.db.load_db()
                     with ThreadPoolExecutor(max_workers=1) as executor:
@@ -77,7 +77,7 @@ def sh_single_dev(Device):
             else:
                 try:
                     result=lab.command(devices=Device ,instruction=request.form["action"])
-                    flash(f"Success fully ran with result:{result}","success")
+                    flash(f"Successfully ran command with result:{result}","success")
                 except Exception as e:
                     flash(f"Failed to run due to error: \n{e}","danger")
         except:
@@ -113,7 +113,7 @@ def addDevice():
             new_device=dict(request.form)
             new_device["password"]=new_device["password1"]
             try:
-                id = max([id['id'] for id in lab.db.temp_data['devices']])
+                id = max([id['id'] for id in lab.db.data['devices']])
                 id+=1
             except ValueError:
                 id=0
