@@ -68,10 +68,9 @@
                 <div class="d-flex">
                     <select class="form-group btn btn-info mx-auto w-100 h-100" style="background-color: #21498f;" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select ">
                         <option value="{{ lab.DeviceInstances[device].device[key] }}" selected disabled hidden>{{ lab.DeviceInstances[device].device[key] }}</option>
-                        <option value="linux">Linux</option>
-                        <option value="win32">Windows</option>
-                        <option value="cisco">Cisco</option>
-                        <option value="turing">Turing Pi</option>
+                        {% for key in lab.deviceInitDict %}
+                        <option value="{{key}}">{{key}}</option>
+                        {% endfor %}
                     </select>
                   
   

@@ -53,10 +53,9 @@
               <div class="d-flex">
                   <select class="form-group btn btn-info mx-auto w-100 h-100" style="background-color: #21498f;" for="device_type" name="device_type" style="float: inline-end;" aria-label="Default select ">
                       <option selected>Select</option>
-                      <option value="linux">Linux</option>
-                      <option value="win32">Windows</option>
-                      <option value="cisco">Cisco</option>
-                      <option value="turing">Turing Pi</option>
+                      {% for key in lab.deviceInitDict %}
+                      <option value="{{key}}">{{key}}</option>
+                      {% endfor %}
                   </select>
                 
 
@@ -67,7 +66,7 @@
                   <h4 class="p-1 rounded" style="background-color: #D9C580; color: #222"for="key">{{key.capitalize()|replace("_", " ")}}</h4>
                 <div class="form-groupp">
                   <input
-                    type="password1"
+                    type="password1"  
                     class="form-control"
                     id="password1"
                     name="password1"
