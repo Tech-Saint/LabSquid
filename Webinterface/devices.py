@@ -1,8 +1,6 @@
 from flask import Blueprint, render_template , request, flash, redirect, url_for, session
 from concurrent.futures import as_completed,ThreadPoolExecutor
 import re, copy
-from Labmanager.src.clients import init_device_objs
-
 
 from Webinterface import lab
 
@@ -40,7 +38,7 @@ def edit_single_dev(device):
                     result=lab.db.save_db()
                     lab.db.load_db()
                     with ThreadPoolExecutor(max_workers=1) as executor:
-                        init_device = executor.submit(init_device_objs,temp_device)
+                        init_device = executor.submit(lab.init_device_objs,temp_device)
 
                         try:
                             lab.DeviceInstances[device] = init_device.result()
@@ -127,7 +125,7 @@ def addDevice():
             lab.db.load_db()       
  
 
-            lab.DeviceInstances[new_device["DNS_name"]]=init_device_objs(new_device)
+            lab.DeviceInstances[new_device["DNS_name"]]=lab.init_device_objs(new_device)
             return redirect(f"/device/{new_device['DNS_name']}")
 
     except Exception as e:
